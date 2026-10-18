@@ -133,7 +133,8 @@ export class App {
 
   placeGifts() {
     const g = this.save.daily.giftTaken ? [] : (this.save.daily.gift || []);
-    this.world.gifts = g.map((type, i) => ({ type, x: 26 + ((i * 37) % 150), y: this.world.islandTop + 6 + (i % 2) * 8 }));
+    // spread over the middle of the top beach, clear of the side buttons on either edge
+    this.world.gifts = g.map((type, i) => ({ type, x: 58 + ((i * 23) % 84), y: this.world.islandTop + 6 + (i % 3) * 7 }));
   }
 
   onGo() {

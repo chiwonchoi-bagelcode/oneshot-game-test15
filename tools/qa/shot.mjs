@@ -37,7 +37,8 @@ export async function openGame({ w = W, h = H, dpr = DPR, file = false, page = p
   let srv = null, url;
   if (file) url = 'file://' + path.join(root, 'out', page);
   else { srv = await serve(path.join(root, 'out')); url = `http://127.0.0.1:${srv.address().port}/${page}`; }
-  if (storage) await pg.addInitScript((s) => { for (const [k, v] of Object.entries(s)) localStorage.setItem(k, v); }, storage);
+  // seed storage once per tab, so an in-game reload (e.g. Start Over) keeps what the game wrote
+  if (storage) await pg.addInitScript((s) => { if (sessionStorage.getItem('__seeded')) return; for (const [k, v] of Object.entries(s)) localStorage.setItem(k, v); sessionStorage.setItem('__seeded', '1'); }, storage);
   await pg.goto(url);
   return { browser, context, page: pg, errors, close: async () => { await browser.close(); if (srv) srv.close(); } };
 }

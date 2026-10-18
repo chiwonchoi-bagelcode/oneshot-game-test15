@@ -21,6 +21,8 @@ export function setHaptics(on) { H.enabled = !!on; if (!on) stopHaptics(); }
 
 export function buzz(kind) {
   if (!H.enabled || !H.supported) return;
+  // browsers refuse (and log) vibration before the first tap on the page
+  if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
   const now = performance.now();
   // never queue faster than the motor can render distinct pulses
   if (kind === 'tick' && now - H.last < 45) return;

@@ -29,7 +29,10 @@ export async function audit(page, label) {
     };
     const name = (el) => (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ').filter(Boolean).join('.') : el.tagName.toLowerCase()) + (el.textContent ? ` "${el.textContent.trim().slice(0, 24)}"` : '');
     const layers = ['#L-hud', '#L-home', '#L-results', '#L-popup', '#L-fx'].map((s) => document.querySelector(s)).filter(Boolean);
-    const all = layers.flatMap((l) => [...l.querySelectorAll('*')]).filter(visible);
+    // with stacked popups only the top one can be touched
+    const scrims = [...document.querySelectorAll('#L-popup .scrim')];
+    const under = scrims.slice(0, -1);
+    const all = layers.flatMap((l) => [...l.querySelectorAll('*')]).filter((el) => !under.some((sc) => sc.contains(el))).filter(visible);
     // 1) text that doesn't fit its box (only where the box clips it)
     for (const el of all) {
       if (!el.childNodes.length || ![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) continue;
