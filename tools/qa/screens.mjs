@@ -3,6 +3,7 @@
 import path from 'node:path';
 import fs from 'node:fs';
 import { openGame } from './shot.mjs';
+import { audit } from './audit.mjs';
 
 const args = process.argv.slice(2);
 const arg = (k, d) => { const i = args.indexOf('--' + k); return i >= 0 ? args[i + 1] : d; };
@@ -34,7 +35,8 @@ function seededSave(extra = {}) {
 const g = await openGame({ page: 'dev.html', w: W, h: H, dpr: DPR, lang, storage: { 'lowtide.save.v1': JSON.stringify(seededSave()) } });
 const pg = g.page;
 let n = 0;
-const shot = async (name) => { n++; await pg.screenshot({ path: path.join(out, `${String(n).padStart(2, '0')}_${name}.png`) }); };
+const problems = [];
+const shot = async (name) => { n++; await pg.screenshot({ path: path.join(out, `${String(n).padStart(2, '0')}_${name}.png`) }); problems.push(...await audit(pg, name)); };
 const click = (sel) => pg.evaluate((s) => { const e = document.querySelector(s); if (e) e.click(); return !!e; }, sel);
 const closePop = () => pg.evaluate(() => { const x = document.querySelector('.popup .x'); if (x) x.click(); });
 await pg.waitForTimeout(2600);
@@ -81,5 +83,29 @@ await pg.waitForTimeout(3000);
 await pg.evaluate(() => window.__app.pause());
 await pg.waitForTimeout(400);
 await shot('pause');
+// popup scrolling: the title bar and close button must stay put while the body scrolls
+await pg.evaluate(() => { window.__app.ui.closeAll(); window.__autopilot.stop(); window.__app.toIsland(); });
+await pg.waitForTimeout(1500);
+const scrollCheck = await pg.evaluate(async () => {
+  const res = [];
+  const ui = window.__app.ui;
+  for (const open of ['openCalendar', 'openBook', 'openDecor']) {
+    ui.closeAll && ui.closeAll();
+    ui[open]();
+    await new Promise((r) => setTimeout(r, 350));
+    const pop = document.querySelector('#L-popup .popup');
+    if (!pop) { res.push(open + ': no popup'); continue; }
+    const body = [...pop.querySelectorAll('*')].find((e) => /(auto|scroll)/.test(getComputedStyle(e).overflowY) && e.scrollHeight > e.clientHeight);
+    const x = pop.querySelector('.x');
+    const before = x && x.getBoundingClientRect().top;
+    if (body) { body.scrollTop = body.scrollHeight; await new Promise((r) => setTimeout(r, 100)); }
+    const after = x && x.getBoundingClientRect().top;
+    res.push(`${open}: scrolls=${!!body} closeMoved=${before !== after}`);
+  }
+  ui.closeAll && ui.closeAll();
+  return res;
+});
+console.log('popup scroll:', scrollCheck.join(' | '));
+console.log('audit:', problems.length ? '\n  ' + problems.join('\n  ') : 'no problems');
 console.log('errors:', g.errors.filter((e) => !e.includes('404')).join('\n') || 'none');
 await g.close();

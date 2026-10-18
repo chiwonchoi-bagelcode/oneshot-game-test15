@@ -9,7 +9,7 @@ import { Water } from '../src/game/water.js';
 import { loadAssets, spr, sprC } from '../src/core/assets.js';
 import { validateLevel } from '../tools/levels/validate-src.mjs';
 import { prepare, plan, goalObjective } from '../src/game/solver.js';
-import { earliest, pathTo, cellOf } from '../src/game/model.js';
+import { earliest, pathTo } from '../src/game/model.js';
 import KO from '../src/data/i18n/ko.json';
 
 const STORE = 'lowtide.editor.levels';

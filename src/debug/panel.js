@@ -30,7 +30,7 @@ export function initDebug(app) {
   const actions = [
     ['+10 all mats', () => { for (const m of eco.MATS) s().mats[m] += 10; refresh(); }],
     ['+100 all mats', () => { for (const m of eco.MATS) s().mats[m] += 100; refresh(); }],
-    ['clear current (3★)', () => { const lv = eco.levelById(app.levelN); const r = eco.levelRecord(s(), app.levelN); r.stars = 7; s().unlocked = Math.max(s().unlocked, Math.min(eco.levelCount(), app.levelN + 1)); app.levelN = Math.min(eco.levelCount(), app.levelN + 1); refresh(); }],
+    ['clear current (3★)', () => { const r = eco.levelRecord(s(), app.levelN); r.stars = 7; s().unlocked = Math.max(s().unlocked, Math.min(eco.levelCount(), app.levelN + 1)); app.levelN = Math.min(eco.levelCount(), app.levelN + 1); refresh(); }],
     ['prev level', () => { app.levelN = Math.max(1, app.levelN - 1); refresh(); }],
     ['next level', () => { app.levelN = Math.min(eco.levelCount(), app.levelN + 1); s().unlocked = Math.max(s().unlocked, app.levelN); refresh(); }],
     ['unlock all levels', () => { s().unlocked = eco.levelCount(); refresh(); }],

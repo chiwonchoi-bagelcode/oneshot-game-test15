@@ -3,7 +3,7 @@
 import { LEVELS } from '../../src/data/levels/index.js';
 import BAL from '../../src/data/balance.json';
 import ITEMS from '../../src/data/items.json';
-import { prepare, plan, goalObjective, allGoalsObjective, naiveBot, greedyBot, turnFraction } from '../../src/game/solver.js';
+import { prepare, plan, goalObjective, allGoalsObjective, greedyBot, turnFraction } from '../../src/game/solver.js';
 import { makeDailyLevel } from '../../src/game/daily.js';
 
 export function structural(lv) {

@@ -1,7 +1,6 @@
 // Progression simulator: plays the tides in order with a planner-driven but imperfect player,
 // spends materials on buildings, and reports when things unlock. Bundled by econ.mjs.
 import { LEVELS } from '../../src/data/levels/index.js';
-import BUILD from '../../src/data/buildings.json';
 import { prepare, plan, allGoalsObjective, goalObjective } from '../../src/game/solver.js';
 import { freshSave } from '../../src/meta/save.js';
 import * as eco from '../../src/meta/economy.js';

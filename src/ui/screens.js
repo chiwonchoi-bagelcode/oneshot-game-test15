@@ -7,11 +7,10 @@ import { h, icon, iconStyle, btn, onTap, clear, busy } from './dom.js';
 import { t, i18n, itemCount, joinItems } from './i18n.js';
 import { screen } from '../core/screen.js';
 import { frame, assets } from '../core/assets.js';
-import { T } from '../game/model.js';
 import {
-  MATS, nextBuild, canAfford, canBuildNow, buildingLevel, levelState, levelById, levelCount, starCount,
+  MATS, nextBuild, canAfford, buildingLevel, levelState, levelById, levelCount,
   clearedCount, decorUnlocked, decorCost, decorSlotsLeft, totalStars, plotAvailable, collectionUnlocked,
-  calendarUnlocked, dailyTideUnlocked, requirementsMet,
+  calendarUnlocked, dailyTideUnlocked,
 } from '../meta/economy.js';
 
 const BNAME = (id) => t('b.' + id);

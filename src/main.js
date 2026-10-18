@@ -6,7 +6,6 @@ import { App } from './game/app.js';
 import { initAudioLifecycle, loadPack, unlockAudio, tickAudio } from './audio/audio.js';
 import { t } from './ui/i18n.js';
 
-/* global __DEV__ */
 
 async function main() {
   const root = document.getElementById('root');
@@ -54,6 +53,7 @@ async function main() {
   // main loop: fixed max dt, optional 30fps cap (battery saver), stops while hidden
   let last = performance.now();
   let acc = 0;
+  let slowEma = 1 / 60, slowT = 0;
   const ctx = screen.ctx;
   const frame = (now) => {
     requestAnimationFrame(frame);
@@ -65,6 +65,12 @@ async function main() {
     if (app.targetFps === 30 && acc < step * 0.9) return;
     const d = Math.min(acc, 0.1);
     acc = 0;
+    // safety net for slow phones: if a run can't hold ~45 fps for 3 s, lighten effects for this session
+    if (app.mode === 'run' && !app.autoLow && app.targetFps !== 30) {
+      slowEma = slowEma * 0.95 + d * 0.05;
+      slowT = slowEma > 0.022 ? slowT + d : 0;
+      if (slowT > 3) app.lighten(Math.round(1 / slowEma));
+    }
     app.update(d);
     app.render(ctx);
     tickAudio(d, app.mode === 'island');

@@ -1,6 +1,5 @@
 // Route planner over the time-dependent flood model. Used by the level validator (Node),
 // the bot playtests, and the dev autopilot. Pure functions only.
-import BAL from '../data/balance.json';
 import ITEMS from '../data/items.json';
 import ISLAND from '../data/island.json';
 import { buildModel, buildNav, makeTide, earliest, cellOf, CELL, T, bagMultiplier } from './model.js';
@@ -33,7 +32,6 @@ function latestDeparture(P, x, y, w, scale, cache, key) {
 // Beam search. objective(counts) -> number to maximise among safe returns.
 export function plan(P, { scale = 1, beam = 40, objective, maxDepth = 30, pickDelay = 0.05 } = {}) {
   const cache = new Map();
-  const startCell = cellOf(P.nav, P.start.x, P.start.y);
   let frontier = [{ x: P.start.x, y: P.start.y, t: 0, w: 0, picked: [], counts: {}, val: 0 }];
   let best = null;
   const consider = (s, back) => {

@@ -7,7 +7,6 @@ import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const out = path.join(root, 'out');
 const P = (...a) => path.join(root, ...a);
 
 if (!process.argv.includes('--skip-fonts') || !fs.existsSync(P('.cache', 'fonts.css'))) {

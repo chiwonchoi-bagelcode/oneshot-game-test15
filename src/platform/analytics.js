@@ -23,6 +23,7 @@ export const EVENTS = {
   assist_used: ['level'],
   bell_rung: ['level', 'slack'],
   settings_change: ['key', 'value'],
+  perf_downgrade: ['fps'],
   screen_view: ['screen'],
 };
 

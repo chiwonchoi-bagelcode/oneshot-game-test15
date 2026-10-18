@@ -1,7 +1,7 @@
 // Dev-only autopilot: plays runs through the real engine by steering the joystick along solver routes.
 // Used for automated playtests, screenshots and trailer capture.
 import { prepare, plan, allGoalsObjective } from '../game/solver.js';
-import { earliest, pathTo, cellOf, CELL } from '../game/model.js';
+import { earliest, pathTo, cellOf } from '../game/model.js';
 import { input } from '../core/input.js';
 import { upgradesFrom } from '../meta/economy.js';
 
@@ -17,6 +17,12 @@ export function makeAutopilot(app) {
     runScript(steps, opts = {}) { ap.opts = { wobble: 0, speed: 1, ...opts }; ap.script = steps.slice(); ap.on = true; ap.holdT = 0; ap.wps = []; ap.phase = 'script'; },
   };
   let wobT = 0, wob = 0;
+  // advise mode: a test drives the real touch input toward ap.dir instead of the autopilot writing the joystick
+  const setIn = (active, vx, vy, mag) => {
+    if (ap.opts.advise) { ap.dir = active && mag > 0 ? [vx, vy] : null; return; }
+    input.active = active; input.vx = vx; input.vy = vy; input.mag = mag;
+    if (active && mag > 0 && !input.moved) input.moved = true;
+  };
   function planRoute() {
     const w = app.world;
     const P = prepare(w.level, upgradesFrom(app.save), w.assist || 0);
@@ -72,14 +78,14 @@ export function makeAutopilot(app) {
     if (!ap.on) return;
     const w = app.world;
     if (app.mode !== 'run') return;
-    if (ap.script) { if (w.state === 'play' || w.state === 'ready') scriptStep(dt); else { input.active = false; input.vx = input.vy = input.mag = 0; } return; }
+    if (ap.script) { if (w.state === 'play' || w.state === 'ready') scriptStep(dt); else { setIn(false, 0, 0, 0); } return; }
     if (w.state === 'ready' && ap.phase === 'wait') {
       planRoute();
       ap.phase = 'collect';
       ap.wps = [];
       ap.extra = ap.opts.greed;
     }
-    if (w.state !== 'play' && w.state !== 'ready') { input.active = false; input.vx = input.vy = input.mag = 0; return; }
+    if (w.state !== 'play' && w.state !== 'ready') { setIn(false, 0, 0, 0); return; }
     const p = w.player;
     // pick next waypoint list
     if (!ap.wps.length) {
@@ -104,7 +110,7 @@ export function makeAutopilot(app) {
     }
     // steer
     while (ap.wps.length && Math.hypot(ap.wps[0][0] - p.x, ap.wps[0][1] - (p.y - 2)) < 5) ap.wps.shift();
-    if (!ap.wps.length) { input.active = true; input.vx = 0; input.vy = ap.phase === 'home' ? 1 : 0; input.mag = 1; return; }
+    if (!ap.wps.length) { setIn(true, 0, ap.phase === 'home' ? 1 : 0, ap.phase === 'home' ? 1 : 0); return; }
     const [tx, ty] = ap.wps[0];
     let dx = tx - p.x, dy = ty - (p.y - 2);
     const d = Math.hypot(dx, dy) || 1;
@@ -112,11 +118,7 @@ export function makeAutopilot(app) {
     wobT -= dt;
     if (wobT <= 0) { wobT = 0.3 + Math.random() * 0.4; wob = (Math.random() - 0.5) * 2 * ap.opts.wobble; }
     const c = Math.cos(wob), s = Math.sin(wob);
-    input.active = true;
-    input.vx = (dx * c - dy * s) * ap.opts.speed;
-    input.vy = (dx * s + dy * c) * ap.opts.speed;
-    input.mag = ap.opts.speed;
-    if (!input.moved) input.moved = true;
+    setIn(true, (dx * c - dy * s) * ap.opts.speed, (dx * s + dy * c) * ap.opts.speed, ap.opts.speed);
   };
   return ap;
 }

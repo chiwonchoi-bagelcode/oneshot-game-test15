@@ -350,6 +350,9 @@ def main():
         render_frames(frames, caps, cap_lang, d)
         subs = [(os.path.join(REL, 'subtitles', 'trailer.ko.srt'), 'ko'), (os.path.join(REL, 'subtitles', 'trailer.en.srt'), 'en')] if tag == 'clean' else None
         encode(d, wav, out, subs)
+        # poster for players: the end card of this cut
+        poster = os.path.join(REL, 'video', f'poster_{tag}.jpg')
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-ss', f'{total - 0.6:.2f}', '-i', out, '-frames:v', '1', '-vf', 'scale=540:960', '-q:v', '4', poster], check=True)
         print(out, os.path.getsize(out))
 
 

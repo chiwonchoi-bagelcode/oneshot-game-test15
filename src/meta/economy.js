@@ -140,8 +140,6 @@ export function levelState(save, n) {
 export function starCount(bits) { return (bits & 1) + ((bits >> 1) & 1) + ((bits >> 2) & 1); }
 export function totalStars(save) { let s = 0; for (const r of Object.values(save.levels)) s += starCount(r.stars); return s; }
 
-function itemBuildingKey(k) { return k; }
-
 // chest contents: deterministic per player so reloads cannot reroll
 export function rollChest(save) {
   const seed = (hashStr(save.installId) + save.stats.chests * 7919) >>> 0;

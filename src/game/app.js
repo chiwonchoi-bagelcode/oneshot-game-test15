@@ -2,7 +2,6 @@
 import BAL from '../data/balance.json';
 import ITEMS from '../data/items.json';
 import BUILD from '../data/buildings.json';
-import ISLAND from '../data/island.json';
 import { World } from './world.js';
 import { makeDailyLevel } from './daily.js';
 import { T, clamp } from './model.js';
@@ -13,7 +12,7 @@ import { t, setLang, i18n } from '../ui/i18n.js';
 import { setUiSound } from '../ui/sfxhook.js';
 import { loadSave, writeSave, clearSave, freshSave } from '../meta/save.js';
 import * as eco from '../meta/economy.js';
-import { play, setMusic, setLayer, setVolumes, setAmbience, stopMusic, unlockAudio } from '../audio/audio.js';
+import { play, setMusic, setLayer, setVolumes, setAmbience, unlockAudio } from '../audio/audio.js';
 import { buzz, setHaptics } from '../audio/haptics.js';
 import { track } from '../platform/analytics.js';
 import { auth } from '../platform/account.js';
@@ -442,10 +441,17 @@ export class App {
   }
 
   applyQuality() {
-    const low = this.save.settings.quality === 'low';
+    const low = this.save.settings.quality === 'low' || this.autoLow;
     this.world.quality = low ? 0.5 : 1;
     this.world.fx.quality = low ? 0.5 : 1;
-    this.targetFps = low ? 30 : 60;
+    this.targetFps = this.save.settings.quality === 'low' ? 30 : 60;
+  }
+
+  // frame rate couldn't keep up: lighter water and particles for the rest of the session (setting unchanged)
+  lighten(fps) {
+    this.autoLow = true;
+    this.applyQuality();
+    track('perf_downgrade', { fps });
   }
 
   resetAll() {

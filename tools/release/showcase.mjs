@@ -81,7 +81,7 @@ const subsFiles = exists('subtitles') ? fs.readdirSync(path.join(REL, 'subtitles
 const store = { ko: exists('store/ko.md') ? md(rd('store/ko.md')) : '', en: exists('store/en.md') ? md(rd('store/en.md')) : '' };
 const plan = exists('plan.md') ? md(rd('plan.md')) : '';
 const report = exists('report.md') ? md(rd('report.md')) : '<p>(report.md not written yet)</p>';
-const vids = [['trailer.mp4', '본편 (자막 트랙 ko/en) · Main cut with ko/en subtitle tracks'], ['video/trailer_ko.mp4', '한국어 자막 버전 · Korean captions burned in'], ['video/trailer_en.mp4', 'English cut (English UI, captions burned in)']].filter(([f]) => exists(f));
+const vids = [['trailer.mp4', '본편 (자막 트랙 ko/en) · Main cut with ko/en subtitle tracks', 'clean'], ['video/trailer_ko.mp4', '한국어 자막 버전 · Korean captions burned in', 'ko'], ['video/trailer_en.mp4', 'English cut (English UI, captions burned in)', 'en']].filter(([f]) => exists(f));
 
 const html = `<!doctype html>
 <html lang="ko">
@@ -157,7 +157,7 @@ details summary { cursor: pointer; font-weight: 700; padding: 6px 0; min-height:
 <section>
   <h2>트레일러 · Trailer</h2>
   <div class="row">
-${vids.map(([f, label], i) => `    <div class="vid"><video controls playsinline preload="metadata" src="${f}">${i === 0 ? subsFiles.filter((s) => s.endsWith('.vtt')).map((s) => `<track kind="subtitles" srclang="${s.includes('.ko.') ? 'ko' : 'en'}" label="${s.includes('.ko.') ? '한국어' : 'English'}" src="subtitles/${s}"${s.includes('.ko.') ? ' default' : ''}>`).join('') : ''}</video><div class="cap">${esc(label)}<br>${probe(f)}</div></div>`).join('\n')}
+${vids.map(([f, label, tag], i) => `    <div class="vid"><video controls playsinline preload="metadata"${exists(`video/poster_${tag}.jpg`) ? ` poster="video/poster_${tag}.jpg"` : ''} src="${f}">${i === 0 ? subsFiles.filter((s) => s.endsWith('.vtt')).map((s) => `<track kind="subtitles" srclang="${s.includes('.ko.') ? 'ko' : 'en'}" label="${s.includes('.ko.') ? '한국어' : 'English'}" src="subtitles/${s}"${s.includes('.ko.') ? ' default' : ''}>`).join('') : ''}</video><div class="cap">${esc(label)}<br>${probe(f)}</div></div>`).join('\n')}
   </div>
   <p class="cap">자막 파일 · Subtitle files: ${subsFiles.map((s) => `<a href="subtitles/${s}">${s}</a>`).join(' · ')}</p>
 </section>
