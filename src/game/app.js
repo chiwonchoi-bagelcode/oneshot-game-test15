@@ -173,12 +173,15 @@ export class App {
     this.ui.closeAll();
     this.ui.clearToasts();
     this.pulseGo = false;
+    const titleFading = !!this.ui.titleEl;
     this.loadLevel();
     this.world.resetFlags();
     this.world.startRun();
     const lv = this.currentLevel;
     this.ui.showHud(lv, this.isDaily);
-    this.ui.levelCard(lv, this.isDaily, !!this.assistNext);
+    // on the very first launch the title is still fading: show the goal card right after it
+    if (titleFading) this.ui.later(() => this.ui.levelCard(lv, this.isDaily, !!this.assistNext), 600);
+    else this.ui.levelCard(lv, this.isDaily, !!this.assistNext);
     this.runCounts = {};
     this.runAttempt = this.isDaily ? 1 : eco.levelRecord(this.save, this.levelN).attempts + 1;
     setMusic(['run_base', 'run_tension']);
@@ -256,7 +259,7 @@ export class App {
       case 'turn_back':
         this.sfx('bell', { vol: 0.9 });
         this.buzz('bell');
-        this.ui.toast(t('run.bell'), 1800, true);
+        this.ui.toast(d.late ? t('run.hurry') : t('run.bell'), 1800, true);
         track('bell_rung', { level: this.levelN, slack: Math.round(d.slack * 10) / 10 });
         break;
       case 'arrive':

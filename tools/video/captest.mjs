@@ -1,0 +1,13 @@
+import { openGame } from '../qa/shot.mjs';
+import { startCapture } from './capture.mjs';
+const g = await openGame({ page: 'dev.html', w: 360, h: 640, dpr: 3 });
+await g.page.waitForTimeout(1200);
+await g.page.evaluate(() => { window.__recLog = []; });
+const cap = await startCapture(g.page, '/tmp/claude-0/cap1');
+await g.page.waitForTimeout(2500);
+await g.page.evaluate(() => window.__autopilot.start({}));
+await g.page.waitForTimeout(8000);
+const r = await cap.stop();
+const ts = r.frames.map(f => f.t);
+console.log('frames', ts.length, 'span', (ts[ts.length-1]-ts[0]).toFixed(2), 'fps', (ts.length/(ts[ts.length-1]-ts[0])).toFixed(1), 'log', r.log.length);
+await g.close();

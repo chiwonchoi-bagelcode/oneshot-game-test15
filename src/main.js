@@ -41,6 +41,16 @@ async function main() {
     const { initDebug } = await import('./debug/panel.js');
     initDebug(app);
   }
+  // recording mode (dev only): the harness steps time explicitly, one frame per capture
+  if (typeof __DEV__ !== 'undefined' && __DEV__ && new URLSearchParams(location.search).get('rec')) {
+    window.__simTime = 0;
+    window.__step = (n = 1, dt = 1 / 30) => {
+      for (let i = 0; i < n; i++) { window.__simTime += dt; app.update(dt); }
+      app.render(screen.ctx);
+      return window.__simTime;
+    };
+    return;
+  }
   // main loop: fixed max dt, optional 30fps cap (battery saver), stops while hidden
   let last = performance.now();
   let acc = 0;

@@ -84,7 +84,7 @@
     "tideBonus": 0.15
   },
   "lighthouse": {
-    "bellMargin": 2.5
+    "bellMargin": 4.5
   },
   "daily": {
     "giftByStreak": [

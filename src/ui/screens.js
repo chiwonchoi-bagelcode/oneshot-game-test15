@@ -15,6 +15,16 @@ import {
 } from '../meta/economy.js';
 
 const BNAME = (id) => t('b.' + id);
+// effect text filled from the balance data so numbers never drift from the game
+function bdesc(id, lv) {
+  const cap = BAL.bag.capacity, mud = BAL.sled.mud, len = BAL.boardwalk.length;
+  const v = {
+    boardwalk: { len: len[lv], fast: Math.round((BAL.move.board - 1) * 100) },
+    cottage: { a: cap[lv - 1], b: cap[lv] },
+    shed: { a: Math.round(mud[lv - 1] * 100), b: Math.round(mud[lv] * 100) },
+  }[id] || {};
+  return t(`b.${id}.${lv}`, v);
+}
 const REQ_NAME = { boardwalk: 'boardwalk', bag: 'cottage', sled: 'shed', light: 'lighthouse', stilt: 'stilt', requests: 'haenyeo' };
 
 export class Screens {
@@ -175,9 +185,9 @@ export class Screens {
       this.titleEl = h('div', { class: 'titlelogo' }, h('div', { class: 't1', text: t('title') }), h('div', { class: 't2', text: i18n.lang === 'ko' ? 'Low Tide Island' : '물때 섬' }));
       this.layers.fx.appendChild(this.titleEl);
     } else if (this.titleEl) {
-      const el = this.titleEl; this.titleEl = null;
+      const el = this.titleEl;
       el.style.transition = 'opacity 0.5s'; el.style.opacity = '0';
-      setTimeout(() => el.remove(), 600);
+      setTimeout(() => { el.remove(); if (this.titleEl === el) this.titleEl = null; }, 600);
     }
   }
 
@@ -190,7 +200,7 @@ export class Screens {
     const chips = h('div', { class: 'chips' });
     for (const m of MATS) {
       const n = h('span', { text: '0' });
-      const c = h('div', { class: 'chip', title: t('mat.' + m) }, icon(m, 24), n);
+      const c = h('div', { class: 'chip', title: t('mat.' + m) }, icon(m, screen.cssW < 380 ? 20 : 24), n);
       this.matChips[m] = { c, n };
       chips.appendChild(c);
     }
@@ -249,10 +259,13 @@ export class Screens {
     const reqOpen = (s.daily.requests || []).some((r) => !r.done && (s.mats[r.mat] || 0) >= r.n);
     this.sbReq.badge.classList.toggle('hidden', !reqOpen);
     this.sbDecor.classList.toggle('hidden', !decorUnlocked(s));
-    // vertical placement of side columns: above the bottom card
-    const bottomH = this.homeBottom.offsetHeight || 150;
-    this.sideL.style.bottom = (bottomH + 14) + 'px';
-    this.sideR.style.bottom = (bottomH + 14) + 'px';
+    // side columns sit just under the top bar, over the sea; the island stays clear
+    const topH = (this.homeTop.offsetHeight || 48) + 6;
+    this.sideL.style.top = topH + 'px';
+    this.sideR.style.top = topH + 'px';
+    // tell the camera how much of the screen the UI covers
+    const k = screen.bw / screen.cssW;
+    this.app.world.uiBottom = Math.round(((this.homeBottom.offsetHeight || 160) + 8) * k);
     // next tide card
     const n = this.app.levelN;
     const lv = levelById(n);
@@ -386,7 +399,7 @@ export class Screens {
     const steps = [];
     let delay = 250;
     starEls.forEach((el) => {
-      if (el.prev) { iconStyle(el.ic, 'star', 36); return; }
+      if (el.prev) { iconStyle(el.ic, 'star', 36); el.style.opacity = '0.45'; return; }
       if (!el.ok) return;
       steps.push(setTimeout(() => { iconStyle(el.ic, 'star', 36); el.classList.add('pop'); app.sfx('star', { rate: 1 + steps.length * 0.06 }); app.buzz('ui'); }, delay));
       delay += 320;
@@ -419,7 +432,10 @@ export class Screens {
       const parts = Object.entries(byType).map(([k, v]) => itemCount(k, v));
       return t('res.why_greedy', { items: joinItems(parts) });
     }
-    if (a.kind === 'late') return t('res.why_late', { s: Math.max(1, Math.round(a.secondsLate)) });
+    if (a.kind === 'late') {
+      const sec = Math.max(1, Math.round(a.secondsLate));
+      return sec === 1 ? t('res.why_late_1') : t('res.why_late', { s: sec });
+    }
     return t('res.why_none');
   }
 
@@ -515,7 +531,7 @@ export class Screens {
     return h('div', { class: 'costs' }, ...Object.entries(cost).map(([k, v]) => {
       const have = s.mats[k] || 0;
       const ok = have >= v;
-      return h('span', { class: 'cost ' + (ok ? 'ok' : 'no'), title: t('mat.' + k) }, icon(k, 24), `${Math.min(have, 999)}/${v}`, icon(ok ? 'check' : 'close', 16, 'mark'));
+      return h('span', { class: 'cost ' + (ok ? 'ok' : 'no'), title: t('mat.' + k) }, icon(k, 24), ok ? `${v}` : `${have}/${v}`, icon(ok ? 'check' : 'close', 16, 'mark'));
     }));
   }
 
@@ -532,10 +548,10 @@ export class Screens {
     if (!nb) {
       body.appendChild(h('p', { text: t('b.max') }));
     } else if (!plotAvailable(s, id)) {
-      body.appendChild(h('p', { text: t(`b.${id}.${nb.level}`) }));
+      body.appendChild(h('p', { text: bdesc(id, nb.level) }));
       body.appendChild(h('p', { text: t('b.locked', { n: def.unlockCleared - clearedCount(s) }) }));
     } else {
-      body.appendChild(h('p', { text: t(`b.${id}.${nb.level}`) }));
+      body.appendChild(h('p', { text: bdesc(id, nb.level) }));
       body.appendChild(h('div', { class: 'rsec', style: { textAlign: 'left' }, text: t('b.need') }));
       body.appendChild(this.costRow(nb.cost));
       const ok = canAfford(s, nb.cost);

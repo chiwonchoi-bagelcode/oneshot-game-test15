@@ -6,7 +6,7 @@
  "kind": "think",
  "tide": {
   "low": 34,
-  "duration": 45,
+  "duration": 49,
   "curve": 2.9
  },
  "requires": {

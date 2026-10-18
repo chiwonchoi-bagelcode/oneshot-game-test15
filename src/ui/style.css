@@ -290,3 +290,10 @@ input[type=range] { width: 120px; accent-color: #3f8db0; height: 32px; }
 #debug .dpanel { background: rgba(0, 0, 0, 0.88); color: #cfc; padding: 8px; width: 250px; max-height: 60vh; overflow: auto; touch-action: pan-y; }
 #debug .dpanel button { margin: 2px; background: #333; color: #fff; border: 1px solid #888; padding: 6px; font-size: 12px; }
 #debug .dpanel pre { white-space: pre-wrap; font-size: 10px; margin: 4px 0; }
+
+/* narrow phones: keep the five material chips on one row */
+@media (max-width: 380px) {
+  #L-home .chip { height: 30px; padding: 0 5px 0 1px; gap: 1px; font-size: 13px; }
+  #L-home .chips { gap: 3px; flex-wrap: nowrap; }
+  .side-btn .cap { font-size: 11px; }
+}

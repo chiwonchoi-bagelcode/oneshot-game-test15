@@ -14,6 +14,7 @@ export function initDebug(app) {
   const root = document.getElementById('root');
   const wrap = document.createElement('div');
   wrap.id = 'debug';
+  if (new URLSearchParams(location.search).get('clean')) wrap.style.display = 'none';
   const toggle = document.createElement('button');
   toggle.className = 'dbtn';
   toggle.textContent = 'DEV';

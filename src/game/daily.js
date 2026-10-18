@@ -36,29 +36,33 @@ export function makeDailyLevel(day, save) {
     for (let i = 0; i < 9; i++) { const [x, y] = i < 4 ? near() : mid(); items.push(...one('starfish', +x.toFixed(2), +y.toFixed(2))); }
     items.push(...line('shell', 4.6, 49.6, 3.0, 45.0, 4), ...cluster('wood', 8.4, 46.6, 3, 1.3, seed));
     goals = [{ t: 'starfish', n: 5 }, { t: 'shell', n: 4 }, { t: 'starfish', n: 8 }];
-    tide = { low: board >= 2 ? 42 : 52, duration: 74, curve: 1.95 };
+    tide = { low: board >= 2 ? 46 : 50, duration: 48, curve: 2.6 };
   } else if (mod === 'glass') {
     for (let i = 0; i < 7; i++) { const [x, y] = i < 2 ? near() : i < 5 ? mid() : farS(); items.push(...one('glass', +x.toFixed(2), +y.toFixed(2))); }
     items.push(...line('shell', 6.4, 49.6, 8.6, 45.4, 4), ...cluster('wood', 2.6, 40, 2, 1.2, seed + 1));
     goals = [{ t: 'glass', n: 3 }, { t: 'shell', n: 4 }, { t: 'glass', n: 5 }];
-    tide = { low: board >= 2 ? 40 : 50, duration: 76, curve: 1.95 };
+    tide = { low: board >= 2 ? 46 : 50, duration: 50, curve: 2.6 };
   } else if (mod === 'quick') {
     items.push(...arc('shell', 5.5, 46.5, 2.6, 180, 360, 6), ...cluster('wood', 2.6, 44.6, 3, 1.2, seed), ...cluster('glass', 8.6, 40.6, 2, 1.0, seed + 2));
     items.push(...one('chest', +(3 + r() * 6).toFixed(2), 37.4));
     goals = [{ t: 'shell', n: 5 }, { t: 'wood', n: 3 }, { t: 'chest', n: 1 }];
-    tide = { low: 54, duration: 54, curve: 2.2 };
+    tide = { low: 52, duration: 40, curve: 2.6 };
   } else { // spring: the sea goes far out
     const [cx, cy] = farS();
     items.push(...one('chest', +cx.toFixed(2), +cy.toFixed(2)), ...cluster('pearl', +cx.toFixed(2), +(cy + 1.4).toFixed(2), 2, 1, seed));
     items.push(...line('glass', 3.0, far + 12, 8.0, far + 12, 3), ...line('shell', 5.2, 40, 3.6, 33, 5));
     goals = [{ t: 'glass', n: 2 }, { t: 'pearl', n: 1 }, { t: 'chest', n: 1 }];
-    tide = { low: board >= 2 ? 26 : 34, duration: 80, curve: 1.95 };
+    tide = { low: board >= 2 ? 40 : 44, duration: 54, curve: 2.7 };
   }
   // keep items off rocks and inside the map
   const clean = items.filter((it) => {
     const row = terrain[Math.floor(it.y)];
     return row && row[Math.floor(it.x)] !== 'r' && row[Math.floor(it.x)] !== '~';
   });
+  // goals never ask for more than the map actually holds
+  const have = {};
+  for (const it of clean) have[it.t] = (have[it.t] || 0) + 1;
+  goals = goals.map((g) => ({ ...g, n: Math.max(1, Math.min(g.n, (have[g.t] || 0) - (g.n > 3 ? 1 : 0))) }));
   return {
     id: 'D' + day, n: 0, key: 'daily', daily: true, day, mod, chapter: 0, kind: 'discover',
     tide, requires: {}, fog: null, hintReturn: false, goals, terrain, heights, items: clean,

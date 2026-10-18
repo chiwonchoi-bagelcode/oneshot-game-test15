@@ -100,7 +100,8 @@ export function buildModel(level, up = {}) {
       } else {
         elev[i] = t === 'sea' ? -60 : (tb.safeElev[t] ?? 104);
       }
-      if (t === 'rock') blocked[i] = 1;
+      // rocks, and open sea on the flats: you can't wade into the ocean, only the tide can catch you
+      if (t === 'rock' || (t === 'sea' && y < F)) blocked[i] = 1;
       if (t === 'beach' || t === 'grass') safe[i] = 1;
       if (t === 'sea' && y >= F) blocked[i] = 0;
     }

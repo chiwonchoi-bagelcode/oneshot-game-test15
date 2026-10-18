@@ -12,7 +12,9 @@ export function makeAutopilot(app) {
       ap.opts = { greed: 0, wobble: 0.15, speed: 1, ...opts };
       ap.on = true; ap.phase = 'wait'; ap.targets = []; ap.wps = [];
     },
-    stop() { ap.on = false; input.active = false; input.vx = input.vy = input.mag = 0; },
+    stop() { ap.on = false; ap.script = null; input.active = false; input.vx = input.vy = input.mag = 0; },
+    // scripted route for capture: [{x, y} tiles | {hold: s} | {waitSlack: s} | {home: true}]
+    runScript(steps, opts = {}) { ap.opts = { wobble: 0, speed: 1, ...opts }; ap.script = steps.slice(); ap.on = true; ap.holdT = 0; ap.wps = []; ap.phase = 'script'; },
   };
   let wobT = 0, wob = 0;
   function planRoute() {
@@ -33,10 +35,44 @@ export function makeAutopilot(app) {
     if (!home) pts.push([x, y]);
     return pts;
   }
+  function scriptStep(dt) {
+    const w = app.world;
+    const p = w.player;
+    const step = ap.script[0];
+    if (!step) { input.active = false; input.vx = input.vy = input.mag = 0; return; }
+    const steer = (tx, ty) => {
+      let dx = tx - p.x, dy = ty - (p.y - 2);
+      const d = Math.hypot(dx, dy);
+      if (d < 3) return true;
+      input.active = true; input.vx = dx / d * ap.opts.speed; input.vy = dy / d * ap.opts.speed; input.mag = ap.opts.speed;
+      if (!input.moved) input.moved = true;
+      return false;
+    };
+    if (step.hold !== undefined) {
+      input.active = false; input.vx = input.vy = input.mag = 0;
+      ap.holdT += dt;
+      if (ap.holdT >= step.hold) { ap.holdT = 0; ap.script.shift(); }
+      return;
+    }
+    if (step.waitSlack !== undefined) {
+      input.active = false; input.vx = input.vy = input.mag = 0;
+      if (w.slack <= step.waitSlack) ap.script.shift();
+      return;
+    }
+    if (step.home) {
+      if (!ap.wps.length) ap.wps = routeTo(0, 0, true);
+      while (ap.wps.length && Math.hypot(ap.wps[0][0] - p.x, ap.wps[0][1] - (p.y - 2)) < 5) ap.wps.shift();
+      if (!ap.wps.length) { input.active = true; input.vx = 0; input.vy = 1; input.mag = 1; return; }
+      steer(ap.wps[0][0], ap.wps[0][1]);
+      return;
+    }
+    if (steer(step.x * 16, step.y * 16)) ap.script.shift();
+  }
   ap.update = (dt) => {
     if (!ap.on) return;
     const w = app.world;
     if (app.mode !== 'run') return;
+    if (ap.script) { if (w.state === 'play' || w.state === 'ready') scriptStep(dt); else { input.active = false; input.vx = input.vy = input.mag = 0; } return; }
     if (w.state === 'ready' && ap.phase === 'wait') {
       planRoute();
       ap.phase = 'collect';

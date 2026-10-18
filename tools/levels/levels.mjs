@@ -16,7 +16,7 @@ add({ // first tide: a shell trail leads out, the creek is a river, the sea come
   items: [
     ...line('shell', 5.5, 50.6, 5.0, 47.8, 4), ...arc('shell', 6.6, 46.8, 1.8, 190, 340, 5),
     ...one('wood', 9.0, 45.4), ...one('wood', 2.2, 45.6), ...one('wood', 9.8, 48.2), ...one('wood', 1.6, 50.2),
-    sc('shell', 7, 44.3, 51, 11), ...one('glass', 3.0, 44.4),
+    sc('shell', 7, 44.3, 51, 11), ...one('glass', 3.2, 45.3),
   ],
   goals: [{ t: 'shell', n: 6 }, { t: 'wood', n: 3 }, { t: 'shell', n: 12 }],
 });
@@ -406,7 +406,7 @@ add({
 });
 add({
   name: 'moonlow', kind: 'think', requires: { boardwalk: 3, stilt: 1 },
-  tide: { low: 34, duration: 45, curve: 2.9 },
+  tide: { low: 34, duration: 49, curve: 2.9 },
   map: ch4({ bars: [[5.5, 3, 5, 1.2], [8.5, 15.5, 2.5, 1.6]], mud: [[3, 16, 2, 2]] }),
   items: [
     sc('wood', 3, 28.5, 40, 936),
@@ -439,7 +439,7 @@ add({
 });
 add({
   name: 'lastlight', kind: 'think', requires: { boardwalk: 3, light: 2 },
-  tide: { low: 34, duration: 43, curve: 3.0 },
+  tide: { low: 34, duration: 47, curve: 3.0 },
   map: ch4({ bars: [[5.5, 3, 4.5, 1.4]], mud: [[2, 16, 2, 2.4], [9, 16, 2, 2.4]] }),
   items: [
     sc('wood', 3, 28.5, 40, 939),

@@ -70,8 +70,10 @@ export class World {
 
   islandCamY() {
     const bh = screen.bh;
-    // island sits in the lower part of the screen; leave room for the bottom bar
-    return clamp(this.islandTop + 12 * T - bh + 40 - Math.max(0, (bh - 360) * 0.25), -bh, this.m.Hp - bh);
+    // frame the island just above the bottom card so no building hides behind the UI
+    const ui = this.uiBottom || 100;
+    // the camera may look past the world's bottom edge: open sea is drawn there
+    return clamp(this.islandTop + 11 * T + 4 - (bh - ui), -bh, this.m.Hp - bh + ui + 8);
   }
 
   enterIsland() {
@@ -108,6 +110,8 @@ export class World {
     this.fullCD = 0;
     this.maxDepthRecent = -10;
     this.wetT = -10;
+    this.nearT = -10;
+    this.gapT = 0;
     this.bellRung = false;
     this.litPath = null;
     this.slackT = 0;
@@ -271,6 +275,14 @@ export class World {
     // danger
     const d = m.depth(p.x, p.y, lv);
     if (d > 0) this.wetT = this.runT;
+    // how close is the water behind you? (remembered briefly for the close-call call at the island)
+    this.gapT -= dt;
+    if (this.gapT <= 0 && this.state === 'play') {
+      this.gapT = 0.1;
+      let gap = 99;
+      for (let dy = 4; dy < 48; dy += 4) if (m.depth(p.x, p.y - dy, lv) > 0) { gap = dy; break; }
+      if (gap < 40) this.nearT = this.runT;
+    }
     const danger = d > 0 ? clamp(d / BAL.move.sweptDepth, 0, 1) : (d > -BAL.move.wetBand && !onSafe ? 0.04 : 0);
     this.danger = danger;
     p.face = p.pickFace(cap, danger);
@@ -288,7 +300,7 @@ export class World {
       const warnAt = BAL.lighthouse.bellMargin;
       if (!this.bellRung && this.slack <= warnAt && (this.up.light >= 1 || this.level.hintReturn)) {
         this.bellRung = true;
-        this.hooks.event('turn_back', { slack: this.slack });
+        this.hooks.event('turn_back', { slack: this.slack, late: this.slack < 0 });
       }
       if (this.bellRung && this.up.light >= 2) {
         const r = earliest(this.nav, m, this.tide, p.x, p.y, this.runT, p.weight);
@@ -375,7 +387,7 @@ export class World {
     this.state = 'arrive';
     this.stateT = 0;
     this.byBoat = byBoat;
-    const recentWet = this.runT - this.wetT < BAL.closeCall.seconds;
+    const recentWet = this.runT - this.wetT < BAL.closeCall.seconds || this.runT - this.nearT < BAL.closeCall.seconds;
     const frac = this.tide.fraction(this.runT);
     // how far behind was the water? (looking back toward the flats)
     let gap = 99;

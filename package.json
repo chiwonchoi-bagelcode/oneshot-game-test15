@@ -1,7 +1,7 @@
 {
   "name": "low-tide-island",
   "version": "1.0.0",
-  "description": "\ubb3c\ub54c \uc12c (Low Tide Island) \u2014 mobile HTML5 game",
+  "description": "물때 섬 (Low Tide Island) — mobile HTML5 game",
   "main": "index.js",
   "scripts": {
     "art": "python3 tools/art/build.py",
@@ -25,7 +25,8 @@
   "homepage": "https://github.com/chiwonchoi-bagelcode/oneshot-game-test15#readme",
   "devDependencies": {
     "esbuild": "^0.24.2",
-    "galmuri": "^2.40.3"
+    "galmuri": "^2.40.3",
+    "playwright": "^1.56.1"
   },
   "private": true
 }

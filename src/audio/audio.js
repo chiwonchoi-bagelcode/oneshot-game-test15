@@ -131,6 +131,7 @@ export function setVolumes(music, sfx) {
 
 // opts: { rate, vol, pan, when }
 export function play(name, opts = {}) {
+  if (window.__recLog) window.__recLog.push({ k: 'sfx', name, t: performance.now() / 1000, rate: opts.rate || 1, vol: opts.vol ?? 1 });
   const ctx = A.ctx;
   if (!ctx || ctx.state !== 'running') return null;
   const buf = A.buffers[name];
@@ -158,6 +159,7 @@ export function play(name, opts = {}) {
 
 // layered music: names = ['run_base', 'run_tension'] etc. All layers start in sync.
 export function setMusic(names, fade = 1.2) {
+  if (window.__recLog) window.__recLog.push({ k: 'music', names, t: performance.now() / 1000, fade });
   A.wantMusic = names;
   const ctx = A.ctx;
   if (!ctx) return;
@@ -190,6 +192,7 @@ export function setMusic(names, fade = 1.2) {
 
 // fade an extra layer (e.g. tension) in or out: level 0..1
 export function setLayer(index, level, time = 0.4) {
+  if (window.__recLog) window.__recLog.push({ k: 'layer', index, level, t: performance.now() / 1000 });
   const tr = A.current[index];
   if (!tr || !A.ctx) return;
   tr.gain.gain.setTargetAtTime(level, A.ctx.currentTime, time / 3);
