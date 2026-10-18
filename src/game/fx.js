@@ -1,6 +1,9 @@
 // Particles, floating pickups, footprints and screen shake. Pooled and capped so big moments stay smooth.
 import { spr, sprC } from '../core/assets.js';
 
+const rmq = typeof matchMedia === 'function' ? matchMedia('(prefers-reduced-motion: reduce)') : null;
+const reduceMotion = () => !!(rmq && rmq.matches);
+
 const MAX_PARTS = 220;
 
 export class FX {
@@ -56,6 +59,8 @@ export class FX {
     if (this.prints.length > 160) this.prints.shift();
   }
   shake(amp, time = 0.25) {
+    // the OS "reduce motion" setting keeps only a hint of the shake
+    if (reduceMotion()) amp *= 0.25;
     this.shakeAmp = Math.max(this.shakeAmp, amp * this.quality + (1 - this.quality) * amp * 0.5);
     this.shakeT = Math.max(this.shakeT, time);
   }
