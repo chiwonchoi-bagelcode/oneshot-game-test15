@@ -294,7 +294,8 @@ export class World {
     }
     // lighthouse bell / tutorial hint: tell the player when it's time to turn back
     this.slackT -= dt;
-    if (this.state === 'play' && this.slackT <= 0 && p.bag.length && !onSafe) {
+    // even with an empty sack the sea can still catch you, so the bell rings regardless of what you carry
+    if (this.state === 'play' && this.slackT <= 0 && !onSafe) {
       this.slackT = 0.5;
       this.slack = this.computeSlack();
       const warnAt = BAL.lighthouse.bellMargin;
