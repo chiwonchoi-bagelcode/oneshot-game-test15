@@ -158,9 +158,14 @@ const popup = await pg.evaluate(() => { const p = document.querySelector('#L-pop
 log('next day: popup', JSON.stringify(popup), 'streak', JSON.stringify(save2.streak), 'daily.day', save2.daily.day);
 if (save2.streak.count < 2) problems.push('next day: streak did not advance');
 // save survived the restart
-const keep = ['buildings', 'levels', 'unlocked'].every((k) => JSON.stringify(save2[k]) === JSON.stringify(save1[k]));
+// (empty level records are created lazily when a tide is shown; they carry no progress)
+const norm = (v, k) => (k === 'levels' ? Object.fromEntries(Object.entries(v).filter(([, r]) => r.stars || r.attempts || r.clears || r.best)) : v);
+const keep = ['buildings', 'levels', 'unlocked'].every((k) => JSON.stringify(norm(save2[k], k)) === JSON.stringify(norm(save1[k], k)));
 log('save kept across restart:', keep);
-if (!keep) problems.push('save changed across restart');
+if (!keep) {
+  problems.push('save changed across restart');
+  for (const k of ['buildings', 'levels', 'unlocked']) if (JSON.stringify(save2[k]) !== JSON.stringify(save1[k])) log('  diff', k, JSON.stringify(save1[k]), '->', JSON.stringify(save2[k]));
+}
 
 log('audit/problems:', problems.length ? '\n  ' + problems.join('\n  ') : 'none');
 log('console errors:', g.errors.filter((e) => !e.includes('404')).join('\n') || 'none');

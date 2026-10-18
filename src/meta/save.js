@@ -48,11 +48,18 @@ export function freshSave() {
 
 function migrate(s) {
   const f = freshSave();
-  // fill any missing keys from the fresh template (forward compatible)
+  // fill missing keys from the fresh template and repair wrong types field by field,
+  // so one damaged value never costs the rest of the progress
+  const isMap = (v) => !!v && typeof v === 'object' && !Array.isArray(v);
   const fill = (dst, src) => {
     for (const k of Object.keys(src)) {
-      if (dst[k] === undefined) dst[k] = src[k];
-      else if (src[k] && typeof src[k] === 'object' && !Array.isArray(src[k]) && typeof dst[k] === 'object') fill(dst[k], src[k]);
+      const a = dst[k], b = src[k];
+      if (a === undefined || (a === null && b !== null)) dst[k] = b;
+      else if (isMap(b)) { if (isMap(a)) fill(a, b); else dst[k] = b; }
+      else if (Array.isArray(b)) { if (!Array.isArray(a)) dst[k] = b; }
+      else if (typeof b === 'number' && typeof a !== 'number') { const n = Number(a); dst[k] = Number.isFinite(n) ? n : b; }
+      else if (typeof b === 'boolean' && typeof a !== 'boolean') dst[k] = b;
+      else if (typeof b === 'string' && typeof a !== 'string') dst[k] = b;
     }
   };
   fill(s, f);
@@ -61,13 +68,16 @@ function migrate(s) {
 }
 
 export function loadSave() {
+  let raw = null;
   try {
-    const raw = localStorage.getItem(KEY);
+    raw = localStorage.getItem(KEY);
     if (raw) {
       const s = JSON.parse(raw);
-      if (s && typeof s === 'object') { s.newInstall = false; return migrate(s); }
+      if (s && typeof s === 'object' && !Array.isArray(s)) { s.newInstall = false; return migrate(s); }
     }
   } catch (_) { /* corrupted or blocked storage: start fresh */ }
+  // unreadable: keep a copy before it gets overwritten, so it can still be recovered by hand
+  if (raw) { try { localStorage.setItem(KEY + '.broken', raw); } catch (_) { /* ignore */ } }
   return freshSave();
 }
 
