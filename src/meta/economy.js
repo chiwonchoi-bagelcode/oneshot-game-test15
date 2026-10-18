@@ -274,15 +274,33 @@ export function dailyRefresh(save, track) {
 export function makeRequests(save, d) {
   const r = mulberry32(hashStr('req' + save.installId + d));
   const adv = save.unlocked;
-  // Grandma asks for what piles up (shells, sea glass) and pays in what runs short (driftwood, rope, pearls)
-  const asks = adv > 12 ? ['shell', 'glass', 'shell'] : ['shell', 'shell', 'glass'];
-  const rewards = adv > 20 ? [{ wood: 6 }, { rope: 4 }, { pearl: 2, wood: 2 }] : adv > 8 ? [{ wood: 4 }, { rope: 2, wood: 1 }, { pearl: 1, wood: 2 }] : [{ wood: 3 }, { wood: 2, glass: 1 }, { rope: 1, wood: 1 }];
+  // Grandma takes what piles up beyond what your next buildings need, and pays in what they are short of
+  const need = {};
+  for (const id of BUILD.order) {
+    const nb = nextBuild(save, id);
+    // only what is buildable now or within a few tides counts as needed
+    if (nb && BUILD.list[id].unlockCleared <= clearedCount(save) + 4) for (const [k, v] of Object.entries(nb.cost)) need[k] = (need[k] || 0) + v;
+  }
+  const have = (k) => save.mats[k] || 0;
+  const spare = (k) => have(k) - (need[k] || 0);
+  const asks = ['shell', 'glass'].concat(adv > 20 ? ['wood'] : []).sort((a, b) => spare(b) - spare(a));
+  const short = ['wood', 'rope', 'pearl', 'glass', 'shell']
+    .filter((k) => k !== 'pearl' || adv > 8)
+    .sort((a, b) => ((need[b] || 0) - have(b)) / ((need[b] || 0) + 4) - ((need[a] || 0) - have(a)) / ((need[a] || 0) + 4));
+  const tier = adv > 20 ? 6 : adv > 8 ? 4 : 3;
+  const per = { wood: 1, glass: 1.5, shell: 2, rope: 1.5, pearl: 3 }; // how many of each make one "unit" of reward
   const out = [];
   for (let i = 0; i < BAL.daily.requestCount; i++) {
-    const m = asks[(i + Math.floor(r() * 3)) % asks.length];
+    const m = asks[i === 2 && asks.length > 1 ? 1 : 0];
     const base = m === 'shell' ? 10 : 6;
-    const n = base + Math.floor(r() * 4) + Math.floor(adv / 6) * (m === 'shell' ? 2 : 1);
-    out.push({ id: `r${i}`, mat: m, n, reward: rewards[i % rewards.length], done: false });
+    let n = base + Math.floor(r() * 4) + Math.floor(adv / 6) * (m === 'shell' ? 2 : 1);
+    // never ask for much more than you can spare (but always something)
+    n = Math.max(4, Math.min(n, Math.floor(Math.max(0, spare(m)) * 0.7) || 4));
+    const pays = short.filter((k) => k !== m);
+    const main = pays[i % 2] || 'wood';
+    const reward = { [main]: Math.max(1, Math.round(tier / per[main] * (main === 'wood' ? 1 : 1.5))) };
+    if (i === 2 && adv > 8 && main !== 'pearl') reward.pearl = 1;
+    out.push({ id: `r${i}`, mat: m, n, reward, done: false });
   }
   return out;
 }

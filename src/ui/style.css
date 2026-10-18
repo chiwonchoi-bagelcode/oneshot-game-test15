@@ -160,9 +160,12 @@ html, body {
 @keyframes drag { 0% { transform: translate(0, 0); } 40% { transform: translate(0, -46px); } 60% { transform: translate(0, -46px); opacity: 1; } 100% { transform: translate(0, 0); opacity: 0.3; } }
 
 #vignette { position: absolute; inset: 0; pointer-events: none; opacity: 0; box-shadow: inset 0 0 34px 6px rgba(44, 99, 142, 0.85), inset 0 0 0 3px rgba(244, 255, 251, 0.6); transition: opacity 0.15s linear; }
-#wipe { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: #f4fffb; }
-#wipe.on { animation: wipe 0.9s ease-in-out; }
-@keyframes wipe { 0% { opacity: 0; } 40% { opacity: 1; } 60% { opacity: 1; } 100% { opacity: 0; } }
+/* swept: a wave rolls down over the screen (covers the move to the beach); teal, not a white flash */
+#wipe { position: absolute; left: 0; right: 0; top: -180%; height: 180%; pointer-events: none; visibility: hidden;
+  background: linear-gradient(to bottom, rgba(63, 141, 176, 0) 0%, rgba(98, 188, 203, 0.85) 12%, rgba(159, 226, 220, 0.94) 30%, rgba(159, 226, 220, 0.94) 72%, rgba(244, 255, 251, 0.96) 86%, rgba(244, 255, 251, 0.55) 93%, rgba(244, 255, 251, 0) 100%); }
+#wipe.on { visibility: visible; animation: wipe 1s cubic-bezier(.35, .1, .6, .9) forwards; }
+@keyframes wipe { from { top: -150%; } to { top: 100%; } }
+@media (prefers-reduced-motion: reduce) { #wipe.on { animation: wipe-fade 0.9s ease-in-out forwards; top: 0; height: 100%; } @keyframes wipe-fade { 0%, 100% { opacity: 0; } 35%, 60% { opacity: 1; } } }
 
 /* ---------- home ---------- */
 .home-bottom {

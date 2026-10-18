@@ -164,8 +164,8 @@
         {
           "cost": {
             "wood": 16,
-            "glass": 24,
-            "shell": 40
+            "glass": 30,
+            "shell": 30
           },
           "effect": {
             "light": 1

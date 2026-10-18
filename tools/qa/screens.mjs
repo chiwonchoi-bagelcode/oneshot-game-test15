@@ -32,11 +32,33 @@ function seededSave(extra = {}) {
   };
 }
 
+const NOTCH = args.includes('--notch'); // simulate a notch / dynamic island (59px) and a home indicator (34px)
 const g = await openGame({ page: 'dev.html', w: W, h: H, dpr: DPR, lang, storage: { 'lowtide.save.v1': JSON.stringify(seededSave()) } });
 const pg = g.page;
+if (NOTCH) {
+  await pg.addInitScript(() => document.addEventListener('DOMContentLoaded', () => {
+    const st = document.createElement('style');
+    st.textContent = ':root{--sat:59px!important;--sab:34px!important}#safe-probe{padding:59px 0 34px 0!important}';
+    document.head.appendChild(st);
+  }));
+  await pg.reload();
+}
 let n = 0;
 const problems = [];
-const shot = async (name) => { n++; await pg.screenshot({ path: path.join(out, `${String(n).padStart(2, '0')}_${name}.png`) }); problems.push(...await audit(pg, name)); };
+const shot = async (name) => {
+  n++;
+  await pg.screenshot({ path: path.join(out, `${String(n).padStart(2, '0')}_${name}.png`) });
+  problems.push(...await audit(pg, name));
+  if (NOTCH) {
+    // nothing tappable may sit under the notch or the home indicator
+    problems.push(...(await pg.evaluate(() => [...document.querySelectorAll('#L-hud .btn, #L-home .btn, #L-results .btn, #L-popup .btn')].filter((b) => {
+      const r = b.getBoundingClientRect();
+      if (!r.width || getComputedStyle(b).visibility === 'hidden' || b.closest('.hidden')) return false;
+      let p = b.parentElement; while (p) { if (/(auto|scroll)/.test(getComputedStyle(p).overflowY)) return false; p = p.parentElement; }
+      return r.top < 59 || r.bottom > innerHeight - 34;
+    }).map((b) => `[${'notch'}] button in unsafe area: ${b.className} "${b.textContent.trim().slice(0, 20)}"`))).map((x) => `[${name}] ${x}`));
+  }
+};
 const click = (sel) => pg.evaluate((s) => { const e = document.querySelector(s); if (e) e.click(); return !!e; }, sel);
 const closePop = () => pg.evaluate(() => { const x = document.querySelector('.popup .x'); if (x) x.click(); });
 await pg.waitForTimeout(2600);

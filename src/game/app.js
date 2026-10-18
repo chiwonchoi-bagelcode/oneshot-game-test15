@@ -363,7 +363,12 @@ export class App {
     this.sfx('build', { vol: 0.9 });
     this.buzz('build');
     this.ui.hideHome();
-    setTimeout(() => {
+    // the reveal finishes on its own, or at once on a tap
+    const finish = () => {
+      if (this.buildFinish !== finish) return;
+      this.buildFinish = null;
+      clearTimeout(timer);
+      if (this.world.boardAnim) this.world.boardAnim.t = 99;
       this.sfx('fanfare', { vol: 0.9 });
       this.world.fx.burst(pos.x, (BUILD.list[id].flats ? 0 : this.world.islandTop) + BUILD.list[id].anchor[1] - 16, 26, { speed: 70, life: 1, gravity: 90, sprites: ['fx_petal0', 'fx_petal1', 'fx_petal2', 'fx_petal3', 'fx_petal4'] });
       this.ui.toast(t('b.done_title', { b: t('b.' + id) }) + '\n' + t('b.next_run'), 2200);
@@ -375,7 +380,9 @@ export class App {
       const st = eco.levelState(this.save, this.levelN);
       if (st.state === 'cleared' && this.levelN < this.save.unlocked) { this.levelN = this.save.unlocked; this.persist(); this.loadLevel(); this.world.enterIsland(); }
       this.ui.refreshHome();
-    }, 1700);
+    };
+    this.buildFinish = finish;
+    const timer = setTimeout(finish, 1700);
   }
 
   placeDecor(k) {
@@ -416,6 +423,7 @@ export class App {
 
   // world taps in island mode: plots and gifts
   onTap(cx, cy) {
+    if (this.buildFinish) { this.buildFinish(); return; }
     if (this.mode !== 'island' || this.popupOpen) {
       if (this.mode === 'run' && (this.world.state === 'arrive' || this.world.state === 'swept')) this.world.hurry();
       if (this.mode === 'run' && this.world.state === 'intro') this.world.skipIntro();
