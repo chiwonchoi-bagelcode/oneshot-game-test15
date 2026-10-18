@@ -12,7 +12,8 @@
     "build": "node tools/build/build.mjs",
     "playtest": "node tools/qa/playtest.mjs",
     "lint": "eslint .",
-    "qa": "node tools/qa/first-session.mjs && node tools/qa/screens.mjs --w 360 --h 640 --dpr 2"
+    "qa": "node tools/qa/first-session.mjs && node tools/qa/flows.mjs && node tools/qa/screens.mjs --w 360 --h 640 --dpr 2 && node tools/qa/savecheck.mjs && node tools/qa/swcheck.mjs",
+    "release": "python3 tools/art/brand.py && python3 tools/release/screenshots.py && node tools/release/showcase.mjs && python3 tools/release/speccheck.py"
   },
   "repository": {
     "type": "git",

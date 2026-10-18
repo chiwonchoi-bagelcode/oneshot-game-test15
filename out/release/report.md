@@ -132,6 +132,7 @@
 - 확인함: 스토어 문구 2개(ko·en, 글자 수 제한 안: 짧은 설명 41자/80자, 영어 80/80), 아이콘 512×512 PNG, 피처 1024×500 PNG(알파 없음), 스크린샷 8장 1080×1920(9:16).
 - 확인함: 영상 — 아래 표. 첫 1초부터 실제 첫 판(물 빠짐 → 줄줄이 줍기 → 무거워지는 자루 → 물이 들어옴 → 하나만 더 → 달려서 아슬아슬 → 수확이 쏟아짐 → 데크길 짓기 → 다음 판에 데크길로 갯골 건너기 → 섬이 마을이 되는 단계). 모든 장면은 게임을 실제로 플레이한 화면이다(자동 조작, 가상 시계로 느리게 돌려 1080×1920으로 녹화). 기다리는 구간만 잘랐고 화면을 꾸며 넣지 않았다. 마을 단계 장면은 해당 진행 단계의 저장 데이터로 게임을 열어 녹화했다.
 - 확인함: 영상 검토 — 0.5초 간격 프레임 시트로 장면·자막 위치·타이밍을 확인하고 문제(자막이 결과 창과 겹침, 자막이 장면보다 먼저 나옴, 아슬아슬 판정 누락, 영어 자막 넘침, 로고 잘림)를 고친 뒤 다시 만들었다.
+- 확인함: 출력 규격 자동 점검(`tools/release/speccheck.py`) — 스토어 문구 2개(ko·en), 아이콘 512×512, 피처 1024×500(RGB), 스크린샷 8장, 영상 MP4/H.264·12,662,988바이트·27.14초, 자막 4개(ko·en × vtt·srt), plan·report·index 모두 통과.
 - 확인함: 쇼케이스 `release/index.html` — 바로 플레이(iframe), 영상 3개(자막 트랙), 아이콘·피처·스크린샷, 스토어 문구(탭), 기획서·보고서. 데스크톱·휴대폰 폭에서 깨진 그림·가로 스크롤 없음.
 
 | 파일 | 길이 | 크기 | 영상 | 소리 | 자막 |
@@ -189,5 +190,6 @@ node tools/qa/screens.mjs --w 320 --h 568 --lang en-US   # 모든 화면 캡처 
 node tools/qa/perf.mjs --throttle 4               # 저사양 흉내 프레임 측정
 node tools/qa/swcheck.mjs && node tools/qa/filecheck.mjs && node tools/qa/missing.mjs   # 오프라인·file://·빠진 파일
 node tools/video/trailer-capture.mjs [--en] && python3 tools/video/compose.py   # 영상
-python3 tools/art/brand.py && python3 tools/release/screenshots.py && node tools/release/showcase.mjs
+npm run release                                   # 로고·아이콘·피처·스크린샷·쇼케이스 + 규격 점검(speccheck)
+npm run qa                                        # 첫 세션·곁가지 흐름·화면 점검·저장·오프라인
 ```
