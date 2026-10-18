@@ -1,0 +1,132 @@
+{
+ "id": "L13",
+ "n": 13,
+ "key": "twochests",
+ "chapter": 2,
+ "kind": "think",
+ "tide": {
+  "low": 44,
+  "duration": 46,
+  "curve": 2.7
+ },
+ "requires": {
+  "boardwalk": 2
+ },
+ "fog": null,
+ "hintReturn": false,
+ "tutorial": null,
+ "goals": [
+  {
+   "t": "chest",
+   "n": 1
+  },
+  {
+   "t": "rope",
+   "n": 2
+  },
+  {
+   "t": "chest",
+   "n": 2
+  }
+ ],
+ "terrain": [ "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sbbbssssssss", "sbbbssssbbbb", "ssssssssbbbb", "ssssssssssss", "sssssssrrsss", "ssssssssssss", "ssssssssssss", "sssccccsssss", "scccccccssss", "cccccccccccc", "cccssssccccc", "cssssssscccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssssscccsss", "cssscccccccs", "cccccccccccc", "ccccccsssccc", "scccsssssssc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss"
+ ],
+ "heights": {},
+ "items": [
+  {
+   "t": "wood",
+   "x": 6.63,
+   "y": 34.82
+  },
+  {
+   "t": "wood",
+   "x": 3.98,
+   "y": 29.34
+  },
+  {
+   "t": "wood",
+   "x": 10.61,
+   "y": 37.1
+  },
+  {
+   "t": "chest",
+   "x": 2,
+   "y": 17.4
+  },
+  {
+   "t": "chest",
+   "x": 9.6,
+   "y": 18.4
+  },
+  {
+   "t": "shell",
+   "x": 4.4,
+   "y": 23
+  },
+  {
+   "t": "shell",
+   "x": 4.4,
+   "y": 21.4
+  },
+  {
+   "t": "shell",
+   "x": 4.4,
+   "y": 19.8
+  },
+  {
+   "t": "shell",
+   "x": 4.4,
+   "y": 18.2
+  },
+  {
+   "t": "shell",
+   "x": 4.4,
+   "y": 16.6
+  },
+  {
+   "t": "shell",
+   "x": 4.4,
+   "y": 15
+  },
+  {
+   "t": "rope",
+   "x": 4.09,
+   "y": 31.04
+  },
+  {
+   "t": "rope",
+   "x": 3.88,
+   "y": 30.16
+  },
+  {
+   "t": "glass",
+   "x": 8.4,
+   "y": 33
+  },
+  {
+   "t": "glass",
+   "x": 9.3,
+   "y": 31.5
+  },
+  {
+   "t": "glass",
+   "x": 10.2,
+   "y": 30
+  },
+  {
+   "t": "wood",
+   "x": 4.24,
+   "y": 37.53
+  },
+  {
+   "t": "wood",
+   "x": 2.36,
+   "y": 36.88
+  },
+  {
+   "t": "wood",
+   "x": 3.08,
+   "y": 31.63
+  }
+ ]
+}

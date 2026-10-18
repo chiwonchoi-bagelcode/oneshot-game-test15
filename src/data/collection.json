@@ -1,0 +1,5 @@
+{
+  "_note": "Treasures come out of chests in this order (first chest -> first treasure). Letters come from bottles. Names/texts live in i18n.",
+  "treasures": ["compass", "spoon", "bell", "comb", "coin", "marble", "whistle", "teacup", "key", "goggles", "pen", "model"],
+  "letters": ["l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8"]
+}

@@ -1,0 +1,312 @@
+{
+  "_note": "Costs and effects of every building level. Anchor = bottom-centre of the sprite in island-local pixels (island top-left = 0,0). unlockCleared = number of cleared tides before the plot appears.",
+  "order": [
+    "boardwalk",
+    "cottage",
+    "haenyeo",
+    "shed",
+    "lighthouse",
+    "stilt"
+  ],
+  "list": {
+    "boardwalk": {
+      "unlockCleared": 0,
+      "anchor": [
+        88,
+        18
+      ],
+      "villager": "cat",
+      "levels": [
+        {
+          "cost": {
+            "wood": 3,
+            "shell": 5
+          },
+          "effect": {
+            "boardwalk": 1
+          }
+        },
+        {
+          "cost": {
+            "wood": 14,
+            "shell": 20,
+            "rope": 4
+          },
+          "effect": {
+            "boardwalk": 2
+          }
+        },
+        {
+          "cost": {
+            "wood": 18,
+            "rope": 14,
+            "glass": 28,
+            "shell": 30
+          },
+          "effect": {
+            "boardwalk": 3
+          }
+        }
+      ]
+    },
+    "cottage": {
+      "unlockCleared": 1,
+      "anchor": [
+        46,
+        116
+      ],
+      "sprite": [
+        "b_cottage1",
+        "b_cottage2",
+        "b_cottage3"
+      ],
+      "levels": [
+        {
+          "cost": {
+            "wood": 6,
+            "shell": 12
+          },
+          "effect": {
+            "bag": 1
+          }
+        },
+        {
+          "cost": {
+            "wood": 12,
+            "shell": 24,
+            "glass": 8
+          },
+          "effect": {
+            "bag": 2
+          }
+        },
+        {
+          "cost": {
+            "wood": 16,
+            "glass": 24,
+            "pearl": 6
+          },
+          "effect": {
+            "bag": 3
+          }
+        }
+      ]
+    },
+    "haenyeo": {
+      "unlockCleared": 3,
+      "anchor": [
+        140,
+        148
+      ],
+      "sprite": [
+        "b_haenyeo1"
+      ],
+      "villager": "granny",
+      "levels": [
+        {
+          "cost": {
+            "wood": 8,
+            "shell": 16,
+            "glass": 3
+          },
+          "effect": {
+            "requests": 1
+          }
+        }
+      ]
+    },
+    "shed": {
+      "unlockCleared": 5,
+      "anchor": [
+        30,
+        60
+      ],
+      "sprite": [
+        "b_shed1",
+        "b_shed2"
+      ],
+      "villager": "fisher",
+      "levels": [
+        {
+          "cost": {
+            "wood": 14,
+            "rope": 6,
+            "shell": 10
+          },
+          "effect": {
+            "sled": 1
+          }
+        },
+        {
+          "cost": {
+            "wood": 16,
+            "rope": 12,
+            "glass": 16
+          },
+          "effect": {
+            "sled": 2
+          }
+        }
+      ]
+    },
+    "lighthouse": {
+      "unlockCleared": 9,
+      "anchor": [
+        170,
+        84
+      ],
+      "sprite": [
+        "b_lighthouse1",
+        "b_lighthouse2"
+      ],
+      "villager": "keeper",
+      "levels": [
+        {
+          "cost": {
+            "wood": 16,
+            "glass": 24,
+            "shell": 40
+          },
+          "effect": {
+            "light": 1
+          }
+        },
+        {
+          "cost": {
+            "glass": 40,
+            "pearl": 20,
+            "rope": 20
+          },
+          "effect": {
+            "light": 2
+          }
+        }
+      ]
+    },
+    "stilt": {
+      "unlockCleared": 17,
+      "flats": true,
+      "anchor": [
+        136,
+        248
+      ],
+      "sprite": [
+        "b_stilt1"
+      ],
+      "villager": "boatman",
+      "levels": [
+        {
+          "cost": {
+            "wood": 22,
+            "rope": 20,
+            "pearl": 10,
+            "glass": 30,
+            "shell": 40
+          },
+          "effect": {
+            "stilt": 1
+          }
+        }
+      ]
+    }
+  },
+  "decor": {
+    "unlockCleared": 6,
+    "growth": 0.4,
+    "slots": [
+      [
+        70,
+        40
+      ],
+      [
+        110,
+        40
+      ],
+      [
+        24,
+        150
+      ],
+      [
+        70,
+        164
+      ],
+      [
+        108,
+        168
+      ],
+      [
+        158,
+        118
+      ],
+      [
+        100,
+        108
+      ],
+      [
+        120,
+        86
+      ],
+      [
+        62,
+        86
+      ],
+      [
+        150,
+        166
+      ],
+      [
+        34,
+        60
+      ],
+      [
+        176,
+        60
+      ]
+    ],
+    "catalog": {
+      "flowerbed": {
+        "sprite": "decor_flowerbed",
+        "cost": {
+          "shell": 12,
+          "wood": 2
+        }
+      },
+      "lantern": {
+        "sprite": "decor_lantern",
+        "cost": {
+          "glass": 6,
+          "wood": 4
+        }
+      },
+      "bench": {
+        "sprite": "decor_bench",
+        "cost": {
+          "wood": 8,
+          "shell": 4
+        }
+      },
+      "flag": {
+        "sprite": "decor_flag",
+        "cost": {
+          "rope": 4,
+          "wood": 3
+        }
+      },
+      "chime": {
+        "sprite": "decor_chime",
+        "cost": {
+          "shell": 16,
+          "rope": 2
+        }
+      },
+      "well": {
+        "sprite": "decor_well",
+        "cost": {
+          "shell": 14,
+          "wood": 6,
+          "glass": 3
+        }
+      }
+    }
+  }
+}

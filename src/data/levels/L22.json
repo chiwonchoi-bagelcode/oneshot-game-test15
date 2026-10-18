@@ -1,0 +1,147 @@
+{
+ "id": "L22",
+ "n": 22,
+ "key": "stormafter",
+ "chapter": 2,
+ "kind": "easy",
+ "tide": {
+  "low": 46,
+  "duration": 50,
+  "curve": 2.6
+ },
+ "requires": {
+  "boardwalk": 2
+ },
+ "fog": null,
+ "hintReturn": false,
+ "tutorial": null,
+ "goals": [
+  {
+   "t": "rope",
+   "n": 3
+  },
+  {
+   "t": "wood",
+   "n": 4
+  },
+  {
+   "t": "bottle",
+   "n": 1
+  }
+ ],
+ "terrain": [ "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssbsss", "ssssssbbbbbs", "ssssssbbbbbs", "ssssssssbsss", "ssssssssssss", "sssccccsssss", "scccccccssss", "cccccccccccc", "cccssssccccc", "csmssssscccc", "smmmssssssss", "mmmmmsssssss", "smmmssssssss", "ssmsssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssssscccsss", "cssscccccccs", "cccccccccccc", "ccccccsssccc", "scccsssssssc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss"
+ ],
+ "heights": {},
+ "items": [
+  {
+   "t": "wood",
+   "x": 8,
+   "y": 35.96
+  },
+  {
+   "t": "wood",
+   "x": 0.85,
+   "y": 29.13
+  },
+  {
+   "t": "wood",
+   "x": 1.32,
+   "y": 36.3
+  },
+  {
+   "t": "wood",
+   "x": 2,
+   "y": 46.8
+  },
+  {
+   "t": "wood",
+   "x": 4,
+   "y": 46.8
+  },
+  {
+   "t": "wood",
+   "x": 6,
+   "y": 46.8
+  },
+  {
+   "t": "wood",
+   "x": 8,
+   "y": 46.8
+  },
+  {
+   "t": "wood",
+   "x": 10,
+   "y": 46.8
+  },
+  {
+   "t": "rope",
+   "x": 7.14,
+   "y": 20.17
+  },
+  {
+   "t": "rope",
+   "x": 7.59,
+   "y": 21.27
+  },
+  {
+   "t": "rope",
+   "x": 7.91,
+   "y": 20.41
+  },
+  {
+   "t": "glass",
+   "x": 2.22,
+   "y": 30.86
+  },
+  {
+   "t": "glass",
+   "x": 2.41,
+   "y": 29.72
+  },
+  {
+   "t": "shell",
+   "x": 6.6,
+   "y": 38.4
+  },
+  {
+   "t": "shell",
+   "x": 7.35,
+   "y": 37.15
+  },
+  {
+   "t": "shell",
+   "x": 8.85,
+   "y": 34.65
+  },
+  {
+   "t": "shell",
+   "x": 9.6,
+   "y": 33.4
+  },
+  {
+   "t": "bottle",
+   "x": 10,
+   "y": 19
+  },
+  {
+   "t": "shell",
+   "x": 10.24,
+   "y": 21.62
+  },
+  {
+   "t": "shell",
+   "x": 9.82,
+   "y": 15.48
+  },
+  {
+   "t": "shell",
+   "x": 1.23,
+   "y": 15.76
+  },
+  {
+   "t": "shell",
+   "x": 7.43,
+   "y": 16.88
+  }
+ ]
+}

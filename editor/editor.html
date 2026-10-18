@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>물때 섬 · Level Editor</title>
+<style>
+/*FONTS*/
+:root { --bg: #1d2a33; --panel: #26363f; --line: #3a4f5b; --ink: #eef4f6; --dim: #9fb3bd; --acc: #ffd75e; --ok: #7fd36e; --bad: #ff8a7a; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font: 13px/1.4 'Galmuri11', system-ui, sans-serif; }
+#app { display: grid; grid-template-columns: 220px 1fr 320px; grid-template-rows: 44px 1fr; height: 100vh; }
+header { grid-column: 1 / 4; display: flex; align-items: center; gap: 8px; padding: 0 10px; background: #15212a; border-bottom: 1px solid var(--line); }
+header h1 { font-size: 15px; margin: 0 12px 0 0; font-family: 'Galmuri11B', sans-serif; }
+header .sp { flex: 1; }
+button, select, input { font: inherit; color: var(--ink); background: #33474f; border: 1px solid #4d6670; border-radius: 4px; padding: 5px 9px; }
+button:hover { background: #3f5862; cursor: pointer; }
+button.on { background: #2c638e; border-color: #62bccb; }
+button.primary { background: #3c7d2c; border-color: #7fd36e; }
+aside, section { overflow: auto; }
+#list { border-right: 1px solid var(--line); }
+#list .lv { display: flex; gap: 6px; align-items: center; padding: 6px 10px; border-bottom: 1px solid #22323b; cursor: pointer; }
+#list .lv:hover { background: #2a3c46; }
+#list .lv.cur { background: #2c638e; }
+#list .lv .n { width: 28px; color: var(--dim); }
+#list .lv .st { margin-left: auto; font-size: 11px; }
+#list .chap { padding: 8px 10px 4px; color: var(--acc); font-size: 12px; }
+#center { position: relative; display: flex; flex-direction: column; min-width: 0; }
+#tools { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; border-bottom: 1px solid var(--line); background: var(--panel); }
+#tools .grp { display: flex; gap: 3px; align-items: center; padding-right: 8px; margin-right: 4px; border-right: 1px solid var(--line); }
+#tools .grp:last-child { border: 0; }
+#tools .lbl { color: var(--dim); margin-right: 2px; }
+#mapwrap { flex: 1; overflow: auto; display: flex; justify-content: center; background: #0f1a21; }
+#map { image-rendering: pixelated; cursor: crosshair; margin: 10px; }
+#scrub { display: flex; gap: 8px; align-items: center; padding: 6px 10px; background: var(--panel); border-top: 1px solid var(--line); }
+#scrub input[type=range] { flex: 1; }
+#props { border-left: 1px solid var(--line); padding: 10px; }
+#props h3 { margin: 12px 0 6px; font-size: 13px; color: var(--acc); font-family: 'Galmuri11B', sans-serif; }
+#props label { display: flex; align-items: center; gap: 6px; margin: 4px 0; }
+#props label span { width: 92px; color: var(--dim); flex: none; }
+#props input[type=number] { width: 72px; }
+#props input[type=text] { width: 100%; }
+.goal { display: flex; gap: 4px; align-items: center; margin: 3px 0; }
+.goal select { flex: 1; }
+.goal input { width: 56px; }
+#val { white-space: pre-wrap; font-size: 12px; background: #15212a; padding: 8px; border-radius: 4px; min-height: 60px; }
+.ok { color: var(--ok); } .bad { color: var(--bad); }
+.hint { color: var(--dim); font-size: 11px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="editor.js"></script>
+</body>
+</html>

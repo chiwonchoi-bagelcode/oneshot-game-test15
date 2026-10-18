@@ -1,0 +1,35 @@
+{
+  "_note": "Island rows appended below the flats. d = dry beach (safe), g = grass (safe), ~ = sea. Width must equal balance.worldW.",
+  "rows": [
+    "dddddddddddd",
+    "dddddddddddd",
+    "ddddgggggddd",
+    "dgggggggggdd",
+    "dggggggggggd",
+    "dggggggggggd",
+    "dggggggggggd",
+    "dggggggggggd",
+    "dggggggggggd",
+    "ddgggggggddd",
+    "~dddddddddd~",
+    "~~~~~~~~~~~~"
+  ],
+  "spawn": [88, 14],
+  "props": [
+    { "s": "pine", "x": 12, "y": 128 },
+    { "s": "pine", "x": 176, "y": 138 },
+    { "s": "bush", "x": 92, "y": 150 },
+    { "s": "bush", "x": 20, "y": 96 },
+    { "s": "flower0", "x": 120, "y": 60 },
+    { "s": "flower1", "x": 54, "y": 70 },
+    { "s": "flower0", "x": 160, "y": 100 },
+    { "s": "tuft0", "x": 100, "y": 130 },
+    { "s": "tuft0", "x": 36, "y": 140 },
+    { "s": "tuft1", "x": 16, "y": 22 },
+    { "s": "tuft1", "x": 150, "y": 20 },
+    { "s": "tuft1", "x": 128, "y": 6 },
+    { "s": "pebble0", "x": 60, "y": 10 },
+    { "s": "pebble1", "x": 176, "y": 10 }
+  ],
+  "roam": [24, 40, 168, 160]
+}

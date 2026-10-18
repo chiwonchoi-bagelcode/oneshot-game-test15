@@ -1,0 +1,159 @@
+{
+ "id": "L34",
+ "n": 34,
+ "key": "horizon",
+ "chapter": 4,
+ "kind": "discover",
+ "tide": {
+  "low": 36,
+  "duration": 48,
+  "curve": 2.8
+ },
+ "requires": {
+  "boardwalk": 3
+ },
+ "fog": null,
+ "hintReturn": false,
+ "tutorial": null,
+ "goals": [
+  {
+   "t": "pearl",
+   "n": 2
+  },
+  {
+   "t": "bottle",
+   "n": 1
+  },
+  {
+   "t": "chest",
+   "n": 1
+  }
+ ],
+ "terrain": [ "~~~~~~~~~~~~", "ssssssssssss", "ssssbbbbssss", "ssbbbbbbbbss", "ssbbbbbbbbss", "ssssssssssss", "ssmmmsssssss", "smmmmmssssss", "ssmmmsssssss", "ssssssssssss", "cccccccccccc", "cccccccccccc", "cccccccccccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssccccsssss", "scccccccssss", "cccccccccccc", "cccssssccccc", "cssssssscccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssssscccsss", "cssscccccccs", "cccccccccccc", "ccccccsssccc", "scccsssssssc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss"
+ ],
+ "heights": {
+  "0,10": -10,
+  "1,10": -10,
+  "2,10": -10,
+  "3,10": -10,
+  "4,10": -10,
+  "5,10": -10,
+  "6,10": -10,
+  "7,10": -10,
+  "8,10": -10,
+  "9,10": -10,
+  "10,10": -10,
+  "11,10": -10,
+  "0,11": -10,
+  "1,11": -10,
+  "2,11": -10,
+  "3,11": -10,
+  "4,11": -10,
+  "5,11": -10,
+  "6,11": -10,
+  "7,11": -10,
+  "8,11": -10,
+  "9,11": -10,
+  "10,11": -10,
+  "11,11": -10,
+  "0,12": -10,
+  "1,12": -10,
+  "2,12": -10,
+  "3,12": -10,
+  "4,12": -10,
+  "5,12": -10,
+  "6,12": -10,
+  "7,12": -10,
+  "8,12": -10,
+  "9,12": -10,
+  "10,12": -10,
+  "11,12": -10
+ },
+ "items": [
+  {
+   "t": "wood",
+   "x": 1.16,
+   "y": 36.61
+  },
+  {
+   "t": "wood",
+   "x": 8.39,
+   "y": 39.68
+  },
+  {
+   "t": "wood",
+   "x": 2.83,
+   "y": 29.96
+  },
+  {
+   "t": "bottle",
+   "x": 5.6,
+   "y": 2.8
+  },
+  {
+   "t": "pearl",
+   "x": 3,
+   "y": 3.6
+  },
+  {
+   "t": "pearl",
+   "x": 5.5,
+   "y": 3.6
+  },
+  {
+   "t": "pearl",
+   "x": 8,
+   "y": 3.6
+  },
+  {
+   "t": "chest",
+   "x": 8.8,
+   "y": 5.6
+  },
+  {
+   "t": "glass",
+   "x": 3.85,
+   "y": 7.6
+  },
+  {
+   "t": "glass",
+   "x": 3.74,
+   "y": 6.34
+  },
+  {
+   "t": "glass",
+   "x": 3.06,
+   "y": 6.82
+  },
+  {
+   "t": "rope",
+   "x": 2,
+   "y": 17
+  },
+  {
+   "t": "rope",
+   "x": 4,
+   "y": 15
+  },
+  {
+   "t": "shell",
+   "x": 2.82,
+   "y": 18.78
+  },
+  {
+   "t": "shell",
+   "x": 6.83,
+   "y": 14.8
+  },
+  {
+   "t": "shell",
+   "x": 6.34,
+   "y": 20.46
+  },
+  {
+   "t": "shell",
+   "x": 7.66,
+   "y": 16.79
+  }
+ ]
+}

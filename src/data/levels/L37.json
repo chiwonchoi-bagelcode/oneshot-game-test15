@@ -1,0 +1,174 @@
+{
+ "id": "L37",
+ "n": 37,
+ "key": "oldvillage",
+ "chapter": 4,
+ "kind": "easy",
+ "tide": {
+  "low": 36,
+  "duration": 53,
+  "curve": 2.7
+ },
+ "requires": {
+  "boardwalk": 3
+ },
+ "fog": null,
+ "hintReturn": false,
+ "tutorial": null,
+ "goals": [
+  {
+   "t": "glass",
+   "n": 4
+  },
+  {
+   "t": "chest",
+   "n": 1
+  },
+  {
+   "t": "bottle",
+   "n": 1
+  }
+ ],
+ "terrain": [ "~~~~~~~~~~~~", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssbbbbbbsss", "ssbbbbbbbbss", "sssbbbbbbsss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "cccccccccccc", "cccccccccccc", "cccccccccccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssccccsssss", "scccccccssss", "cccccccccccc", "cccssssccccc", "cssssssscccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssssscccsss", "cssscccccccs", "cccccccccccc", "ccccccsssccc", "scccsssssssc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss"
+ ],
+ "heights": {
+  "0,10": -10,
+  "1,10": -10,
+  "2,10": -10,
+  "3,10": -10,
+  "4,10": -10,
+  "5,10": -10,
+  "6,10": -10,
+  "7,10": -10,
+  "8,10": -10,
+  "9,10": -10,
+  "10,10": -10,
+  "11,10": -10,
+  "0,11": -10,
+  "1,11": -10,
+  "2,11": -10,
+  "3,11": -10,
+  "4,11": -10,
+  "5,11": -10,
+  "6,11": -10,
+  "7,11": -10,
+  "8,11": -10,
+  "9,11": -10,
+  "10,11": -10,
+  "11,11": -10,
+  "0,12": -10,
+  "1,12": -10,
+  "2,12": -10,
+  "3,12": -10,
+  "4,12": -10,
+  "5,12": -10,
+  "6,12": -10,
+  "7,12": -10,
+  "8,12": -10,
+  "9,12": -10,
+  "10,12": -10,
+  "11,12": -10
+ },
+ "items": [
+  {
+   "t": "wood",
+   "x": 2.19,
+   "y": 39.07
+  },
+  {
+   "t": "wood",
+   "x": 3.38,
+   "y": 29.8
+  },
+  {
+   "t": "wood",
+   "x": 10.87,
+   "y": 37.94
+  },
+  {
+   "t": "glass",
+   "x": 1.9,
+   "y": 5
+  },
+  {
+   "t": "glass",
+   "x": 2.59,
+   "y": 3.31
+  },
+  {
+   "t": "glass",
+   "x": 4.39,
+   "y": 2.26
+  },
+  {
+   "t": "glass",
+   "x": 6.61,
+   "y": 2.26
+  },
+  {
+   "t": "glass",
+   "x": 8.41,
+   "y": 3.31
+  },
+  {
+   "t": "glass",
+   "x": 9.1,
+   "y": 5
+  },
+  {
+   "t": "chest",
+   "x": 5.4,
+   "y": 4.6
+  },
+  {
+   "t": "bottle",
+   "x": 2,
+   "y": 7
+  },
+  {
+   "t": "rope",
+   "x": 8.4,
+   "y": 16
+  },
+  {
+   "t": "rope",
+   "x": 9.6,
+   "y": 13.4
+  },
+  {
+   "t": "shell",
+   "x": 3,
+   "y": 25
+  },
+  {
+   "t": "shell",
+   "x": 4,
+   "y": 24
+  },
+  {
+   "t": "shell",
+   "x": 5,
+   "y": 23
+  },
+  {
+   "t": "shell",
+   "x": 6,
+   "y": 22
+  },
+  {
+   "t": "wood",
+   "x": 9.44,
+   "y": 34.13
+  },
+  {
+   "t": "wood",
+   "x": 3.45,
+   "y": 31.56
+  },
+  {
+   "t": "wood",
+   "x": 6.95,
+   "y": 33.65
+  }
+ ]
+}

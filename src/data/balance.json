@@ -1,0 +1,110 @@
+{
+  "_note": "All tuning numbers live here. Units: px = world pixels (16 per tile), elevation units where high tide = 100, seconds.",
+  "tile": 16,
+  "worldW": 12,
+  "flatsRows": 52,
+  "player": {
+    "speed": 56,
+    "accel": 620,
+    "decel": 900,
+    "pickupRadius": 11,
+    "radius": 4,
+    "deadZone": 0.12,
+    "fullSpeedAt": 0.55
+  },
+  "terrain": {
+    "rowBaseTop": 50,
+    "rowBaseBottom": 93,
+    "offset": {
+      "sea": -70,
+      "creek": -24,
+      "mud": -5,
+      "sand": 0,
+      "bar": 10,
+      "rock": 2
+    },
+    "safeElev": {
+      "beach": 104,
+      "grass": 112
+    },
+    "noise": 1.4
+  },
+  "move": {
+    "mud": 0.6,
+    "board": 1.3,
+    "wadeFast": 0.78,
+    "wadeSlow": 0.42,
+    "sweptDepth": 7,
+    "wetBand": 3.5
+  },
+  "bag": {
+    "capacity": [
+      16,
+      20,
+      26,
+      32
+    ],
+    "penalty": 0.5,
+    "curve": 1.25
+  },
+  "sled": {
+    "mud": [
+      0.6,
+      1.0,
+      1.2
+    ]
+  },
+  "boardwalk": {
+    "column": 5,
+    "length": [
+      0,
+      12,
+      28,
+      43
+    ],
+    "elev": 95,
+    "lift": 14
+  },
+  "tide": {
+    "curve": 2.7,
+    "introSeconds": 1.6
+  },
+  "sweep": {
+    "keepFraction": 0.5
+  },
+  "closeCall": {
+    "seconds": 2.5,
+    "pixels": 28
+  },
+  "combo": {
+    "window": 0.75
+  },
+  "assist": {
+    "afterFails": 2,
+    "tideBonus": 0.15
+  },
+  "lighthouse": {
+    "bellMargin": 2.5
+  },
+  "daily": {
+    "giftByStreak": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10
+    ],
+    "requestCount": 3,
+    "dailyTideReward": {
+      "pearl": 1,
+      "glass": 3
+    }
+  },
+  "validator": {
+    "humanSpeed": 0.85,
+    "starSpeed": 0.95,
+    "beam": 24
+  }
+}

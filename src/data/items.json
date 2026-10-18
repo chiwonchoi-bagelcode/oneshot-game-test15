@@ -1,0 +1,17 @@
+{
+  "shell": { "weight": 1, "value": 1, "sprite": "item_shell", "sfx": "pick_shell", "material": true },
+  "wood": { "weight": 2, "value": 2, "sprite": "item_wood", "sfx": "pick_wood", "material": true },
+  "glass": { "weight": 1, "value": 3, "sprite": "item_glass", "sfx": "pick_glass", "material": true },
+  "rope": { "weight": 2, "value": 3, "sprite": "item_rope", "sfx": "pick_rope", "material": true },
+  "pearl": { "weight": 1, "value": 8, "sprite": "item_pearl", "sfx": "pick_pearl", "material": true },
+  "chest": {
+    "weight": 5,
+    "value": 14,
+    "sprite": "item_chest",
+    "sfx": "pick_chest",
+    "material": false,
+    "contents": { "glass": [2, 3], "rope": [1, 2], "pearl": [0, 1], "shell": [2, 4] }
+  },
+  "bottle": { "weight": 1, "value": 2, "sprite": "item_bottle", "sfx": "pick_glass", "material": false },
+  "starfish": { "weight": 1, "value": 2, "sprite": "item_starfish", "sfx": "pick_shell", "material": false }
+}

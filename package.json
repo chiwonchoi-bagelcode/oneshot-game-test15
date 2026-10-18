@@ -1,0 +1,31 @@
+{
+  "name": "low-tide-island",
+  "version": "1.0.0",
+  "description": "\ubb3c\ub54c \uc12c (Low Tide Island) \u2014 mobile HTML5 game",
+  "main": "index.js",
+  "scripts": {
+    "art": "python3 tools/art/build.py",
+    "audio": "python3 tools/audio/build_audio.py",
+    "levels": "node tools/levels/gen.mjs",
+    "validate": "node tools/levels/validate.mjs --daily",
+    "econ": "node tools/levels/econ.mjs",
+    "build": "node tools/build/build.mjs",
+    "playtest": "node tools/qa/playtest.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chiwonchoi-bagelcode/oneshot-game-test15.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chiwonchoi-bagelcode/oneshot-game-test15/issues"
+  },
+  "homepage": "https://github.com/chiwonchoi-bagelcode/oneshot-game-test15#readme",
+  "devDependencies": {
+    "esbuild": "^0.24.2",
+    "galmuri": "^2.40.3"
+  },
+  "private": true
+}

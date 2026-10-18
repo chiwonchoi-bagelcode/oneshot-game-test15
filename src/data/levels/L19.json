@@ -1,0 +1,127 @@
+{
+ "id": "L19",
+ "n": 19,
+ "key": "crossing",
+ "chapter": 2,
+ "kind": "think",
+ "tide": {
+  "low": 42,
+  "duration": 45,
+  "curve": 2.8
+ },
+ "requires": {
+  "boardwalk": 2
+ },
+ "fog": null,
+ "hintReturn": false,
+ "tutorial": null,
+ "goals": [
+  {
+   "t": "glass",
+   "n": 3
+  },
+  {
+   "t": "pearl",
+   "n": 2
+  },
+  {
+   "t": "chest",
+   "n": 1
+  }
+ ],
+ "terrain": [ "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "ssssssssssss", "ssssssssssss", "ssmsssssssss", "smmmssssssss", "mmmmmsssbbbs", "smmmssssbbbs", "ssmsssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssccccsssss", "scccccccssss", "cccccccccccc", "cccccccccccc", "cccssssccccc", "cssssssscccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssssscccsss", "cssscccccccs", "cccccccccccc", "ccccccsssccc", "scccsssssssc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss"
+ ],
+ "heights": {},
+ "items": [
+  {
+   "t": "wood",
+   "x": 2.46,
+   "y": 30.49
+  },
+  {
+   "t": "wood",
+   "x": 4.53,
+   "y": 36.97
+  },
+  {
+   "t": "wood",
+   "x": 9.24,
+   "y": 30.78
+  },
+  {
+   "t": "chest",
+   "x": 9.2,
+   "y": 16.2
+  },
+  {
+   "t": "pearl",
+   "x": 3.02,
+   "y": 15.75
+  },
+  {
+   "t": "pearl",
+   "x": 1.47,
+   "y": 15.34
+  },
+  {
+   "t": "glass",
+   "x": 3.6,
+   "y": 21
+  },
+  {
+   "t": "glass",
+   "x": 5.07,
+   "y": 21
+  },
+  {
+   "t": "glass",
+   "x": 6.53,
+   "y": 21
+  },
+  {
+   "t": "glass",
+   "x": 8,
+   "y": 21
+  },
+  {
+   "t": "shell",
+   "x": 1.4,
+   "y": 34
+  },
+  {
+   "t": "shell",
+   "x": 2.05,
+   "y": 33
+  },
+  {
+   "t": "shell",
+   "x": 2.7,
+   "y": 32
+  },
+  {
+   "t": "shell",
+   "x": 3.35,
+   "y": 31
+  },
+  {
+   "t": "shell",
+   "x": 4,
+   "y": 30
+  },
+  {
+   "t": "rope",
+   "x": 9.6,
+   "y": 32
+  },
+  {
+   "t": "wood",
+   "x": 8.78,
+   "y": 29.3
+  },
+  {
+   "t": "wood",
+   "x": 10.87,
+   "y": 34.97
+  }
+ ]
+}

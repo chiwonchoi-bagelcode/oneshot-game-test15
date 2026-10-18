@@ -1,0 +1,68 @@
+// Entry: loading screen, boot, main loop.
+import { initScreen, screen } from './core/screen.js';
+import { initInput, input } from './core/input.js';
+import { loadAssets } from './core/assets.js';
+import { App } from './game/app.js';
+import { initAudioLifecycle, loadPack, unlockAudio, tickAudio } from './audio/audio.js';
+import { t } from './ui/i18n.js';
+
+/* global __DEV__ */
+
+async function main() {
+  const root = document.getElementById('root');
+  const canvas = document.getElementById('game');
+  const loading = document.getElementById('loading');
+  const bar = loading.querySelector('.bar > i');
+  const msg = loading.querySelector('.msg');
+  initScreen(root, canvas);
+  initAudioLifecycle();
+  const app = new App(root);
+  msg.textContent = t('loading');
+  bar.style.width = '30%';
+  await loadAssets();
+  bar.style.width = '70%';
+  if (document.fonts && document.fonts.load) {
+    try { await Promise.race([document.fonts.load('15px Galmuri11'), new Promise((r) => setTimeout(r, 800))]); } catch (_) { /* fonts optional */ }
+  }
+  bar.style.width = '100%';
+  initInput(document.getElementById('touch'));
+  input.onTap = (x, y) => app.onTap(x, y);
+  // any first touch unlocks audio (mobile autoplay rules)
+  const unlock = () => { unlockAudio(); };
+  window.addEventListener('pointerdown', unlock, { capture: true });
+  window.addEventListener('keydown', unlock, { capture: true });
+  // sounds stream in after the first frame; the game never waits for them
+  setTimeout(() => { loadPack('assets/audio-sfx.js').then(() => loadPack('assets/audio-music.js')); }, 50);
+  await app.boot();
+  loading.classList.add('done');
+  setTimeout(() => loading.remove(), 500);
+  window.__app = app;
+  if (typeof __DEV__ !== 'undefined' && __DEV__) {
+    const { initDebug } = await import('./debug/panel.js');
+    initDebug(app);
+  }
+  // main loop: fixed max dt, optional 30fps cap (battery saver), stops while hidden
+  let last = performance.now();
+  let acc = 0;
+  const ctx = screen.ctx;
+  const frame = (now) => {
+    requestAnimationFrame(frame);
+    let dt = (now - last) / 1000;
+    last = now;
+    if (dt > 0.1) dt = 0.1;
+    const step = 1 / (app.targetFps || 60);
+    acc += dt;
+    if (app.targetFps === 30 && acc < step * 0.9) return;
+    const d = Math.min(acc, 0.1);
+    acc = 0;
+    app.update(d);
+    app.render(ctx);
+    tickAudio(d, app.mode === 'island');
+  };
+  requestAnimationFrame(frame);
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !(typeof __DEV__ !== 'undefined' && __DEV__)) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+}
+
+main();

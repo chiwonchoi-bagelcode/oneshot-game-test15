@@ -1,0 +1,152 @@
+{
+ "id": "L08",
+ "n": 8,
+ "key": "fork",
+ "chapter": 1,
+ "kind": "think",
+ "tide": {
+  "low": 46,
+  "duration": 45,
+  "curve": 2.7
+ },
+ "requires": {
+  "boardwalk": 1
+ },
+ "fog": null,
+ "hintReturn": false,
+ "tutorial": null,
+ "goals": [
+  {
+   "t": "glass",
+   "n": 3
+  },
+  {
+   "t": "shell",
+   "n": 10
+  },
+  {
+   "t": "chest",
+   "n": 1
+  }
+ ],
+ "terrain": [ "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "~~~~~~~~~~~~", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssmmssssssss", "smmmmsssssss", "smmmmsssssss", "smmmmssrssss", "mmmmmmrrssss", "smmmmsssssss", "smmmmsssssss", "smmmmssrssss", "ssmmssrrssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssssscccsss", "cssscccccccs", "cccccccccccc", "ccccccsssccc", "scccsssssssc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss"
+ ],
+ "heights": {},
+ "items": [
+  {
+   "t": "glass",
+   "x": 2.99,
+   "y": 30.84
+  },
+  {
+   "t": "glass",
+   "x": 1.37,
+   "y": 32.46
+  },
+  {
+   "t": "glass",
+   "x": 3.28,
+   "y": 31.63
+  },
+  {
+   "t": "glass",
+   "x": 4.21,
+   "y": 31.25
+  },
+  {
+   "t": "glass",
+   "x": 2.47,
+   "y": 32.41
+  },
+  {
+   "t": "wood",
+   "x": 2.64,
+   "y": 34.87
+  },
+  {
+   "t": "wood",
+   "x": 1.81,
+   "y": 35.5
+  },
+  {
+   "t": "wood",
+   "x": 2.83,
+   "y": 36.22
+  },
+  {
+   "t": "shell",
+   "x": 8.4,
+   "y": 39
+  },
+  {
+   "t": "shell",
+   "x": 8.66,
+   "y": 37.63
+  },
+  {
+   "t": "shell",
+   "x": 8.91,
+   "y": 36.26
+  },
+  {
+   "t": "shell",
+   "x": 9.17,
+   "y": 34.89
+  },
+  {
+   "t": "shell",
+   "x": 9.43,
+   "y": 33.51
+  },
+  {
+   "t": "shell",
+   "x": 9.69,
+   "y": 32.14
+  },
+  {
+   "t": "shell",
+   "x": 9.94,
+   "y": 30.77
+  },
+  {
+   "t": "shell",
+   "x": 10.2,
+   "y": 29.4
+  },
+  {
+   "t": "chest",
+   "x": 9.4,
+   "y": 27.6
+  },
+  {
+   "t": "shell",
+   "x": 3.4,
+   "y": 48.4
+  },
+  {
+   "t": "shell",
+   "x": 2.93,
+   "y": 47.27
+  },
+  {
+   "t": "shell",
+   "x": 2.47,
+   "y": 46.13
+  },
+  {
+   "t": "shell",
+   "x": 2,
+   "y": 45
+  },
+  {
+   "t": "wood",
+   "x": 7.61,
+   "y": 47.89
+  },
+  {
+   "t": "wood",
+   "x": 0.89,
+   "y": 45.68
+  }
+ ]
+}

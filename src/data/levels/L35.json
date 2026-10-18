@@ -1,0 +1,154 @@
+{
+ "id": "L35",
+ "n": 35,
+ "key": "wreck",
+ "chapter": 4,
+ "kind": "discover",
+ "tide": {
+  "low": 36,
+  "duration": 50,
+  "curve": 2.8
+ },
+ "requires": {
+  "boardwalk": 3
+ },
+ "fog": null,
+ "hintReturn": false,
+ "tutorial": null,
+ "goals": [
+  {
+   "t": "chest",
+   "n": 1
+  },
+  {
+   "t": "rope",
+   "n": 3
+  },
+  {
+   "t": "chest",
+   "n": 2
+  }
+ ],
+ "terrain": [ "~~~~~~~~~~~~", "ssssssssssss", "ssssssssssss", "ssbbssrrbbbs", "sbbbbssrbbbb", "ssbbssssbbbs", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "cccccccccccc", "cccccccccccc", "cccccccccccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssccccsssss", "scccccccssss", "cccccccccccc", "cccssssccccc", "cssssssscccc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "sssssscccsss", "cssscccccccs", "cccccccccccc", "ccccccsssccc", "scccsssssssc", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss", "ssssssssssss"
+ ],
+ "heights": {
+  "0,10": -10,
+  "1,10": -10,
+  "2,10": -10,
+  "3,10": -10,
+  "4,10": -10,
+  "5,10": -10,
+  "6,10": -10,
+  "7,10": -10,
+  "8,10": -10,
+  "9,10": -10,
+  "10,10": -10,
+  "11,10": -10,
+  "0,11": -10,
+  "1,11": -10,
+  "2,11": -10,
+  "3,11": -10,
+  "4,11": -10,
+  "5,11": -10,
+  "6,11": -10,
+  "7,11": -10,
+  "8,11": -10,
+  "9,11": -10,
+  "10,11": -10,
+  "11,11": -10,
+  "0,12": -10,
+  "1,12": -10,
+  "2,12": -10,
+  "3,12": -10,
+  "4,12": -10,
+  "5,12": -10,
+  "6,12": -10,
+  "7,12": -10,
+  "8,12": -10,
+  "9,12": -10,
+  "10,12": -10,
+  "11,12": -10
+ },
+ "items": [
+  {
+   "t": "wood",
+   "x": 11.14,
+   "y": 35
+  },
+  {
+   "t": "wood",
+   "x": 6.71,
+   "y": 39.78
+  },
+  {
+   "t": "wood",
+   "x": 9.75,
+   "y": 36.72
+  },
+  {
+   "t": "chest",
+   "x": 2,
+   "y": 3.8
+  },
+  {
+   "t": "chest",
+   "x": 3.4,
+   "y": 4.6
+  },
+  {
+   "t": "rope",
+   "x": 8.6,
+   "y": 3.6
+  },
+  {
+   "t": "rope",
+   "x": 9.4,
+   "y": 4.3
+  },
+  {
+   "t": "rope",
+   "x": 10.2,
+   "y": 5
+  },
+  {
+   "t": "wood",
+   "x": 3.6,
+   "y": 6.6
+  },
+  {
+   "t": "wood",
+   "x": 5.8,
+   "y": 6.6
+  },
+  {
+   "t": "wood",
+   "x": 8,
+   "y": 6.6
+  },
+  {
+   "t": "pearl",
+   "x": 7.84,
+   "y": 14.39
+  },
+  {
+   "t": "pearl",
+   "x": 6.49,
+   "y": 15.12
+  },
+  {
+   "t": "glass",
+   "x": 3.49,
+   "y": 21.9
+  },
+  {
+   "t": "glass",
+   "x": 2.95,
+   "y": 16.48
+  },
+  {
+   "t": "glass",
+   "x": 10.66,
+   "y": 20.42
+  }
+ ]
+}
