@@ -43,7 +43,7 @@ export function t(key, vars) {
 }
 
 export function itemCount(type, n) {
-  return t('item_count', { n, name: t((n === 1 ? 'mat1.' : 'matN.') + type) });
+  return t(n === 1 ? 'item_count1' : 'item_count', { n, name: t((n === 1 ? 'mat1.' : 'matN.') + type) });
 }
 
 export function joinItems(parts) {
