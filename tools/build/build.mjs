@@ -37,14 +37,14 @@ fs.writeFileSync(P('out/manifest.webmanifest'), JSON.stringify({
   orientation: 'portrait', background_color: '#2c638e', theme_color: '#2c638e',
   icons: [{ src: 'assets/icon-192.png', sizes: '192x192', type: 'image/png' }, { src: 'assets/icon-512.png', sizes: '512x512', type: 'image/png' }],
 }, null, 1));
-const cacheList = ['./', 'index.html', 'game.js', 'assets/world.png', 'assets/ui.png', 'assets/logo.png', 'assets/audio-sfx.js', 'assets/audio-music.js',
+const cacheList = ['./', 'index.html', 'game.js', 'assets/world.png', 'assets/ui.png', 'assets/logo.png', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/audio-sfx.js', 'assets/audio-music.js',
   ...fs.readdirSync(P('out/assets/ui')).map((f) => 'assets/ui/' + f)];
 const ver = Date.now().toString(36);
 fs.writeFileSync(P('out/sw.js'), `// offline cache (release build)
 const C='lowtide-${ver}';const F=${JSON.stringify(cacheList)};
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(F).catch(()=>{})));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim();});
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const cp=res.clone();caches.open(C).then(c=>c.put(e.request,cp));return res;})));});
+self.addEventListener('fetch',e=>{const q=e.request;if(q.method!=='GET'||q.headers.has('range')||/\\/(release|tools)\\//.test(q.url)||!q.url.startsWith(self.location.origin))return;e.respondWith(caches.match(q).then(r=>r||fetch(q).then(res=>{if(res.ok&&res.status===200){const cp=res.clone();caches.open(C).then(c=>c.put(q,cp)).catch(()=>{});}return res;})));});
 `);
 fs.copyFileSync(P('node_modules/galmuri/ofl.md'), P('out/assets/FONT-LICENSE-Galmuri.md'));
 

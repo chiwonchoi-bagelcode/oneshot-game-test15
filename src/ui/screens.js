@@ -25,6 +25,11 @@ function bdesc(id, lv) {
   }[id] || {};
   return t(`b.${id}.${lv}`, v);
 }
+// what a finished building does right now
+function bnow(id, lv) {
+  const v = { len: BAL.boardwalk.length[lv], fast: Math.round((BAL.move.board - 1) * 100), b: id === 'cottage' ? BAL.bag.capacity[lv] : Math.round(BAL.sled.mud[lv] * 100) };
+  return id === 'lighthouse' && lv >= 2 ? t('b.now.lighthouse.2', v) : t('b.now.' + id, v);
+}
 const REQ_NAME = { boardwalk: 'boardwalk', bag: 'cottage', sled: 'shed', light: 'lighthouse', stilt: 'stilt', requests: 'haenyeo' };
 
 export class Screens {
@@ -182,7 +187,7 @@ export class Screens {
 
   title(on) {
     if (on) {
-      this.titleEl = h('div', { class: 'titlelogo' }, h('div', { class: 't1', text: t('title') }), h('div', { class: 't2', text: i18n.lang === 'ko' ? 'Low Tide Island' : '물때 섬' }));
+      this.titleEl = h('div', { class: 'titlelogo' }, h('img', { src: 'assets/logo.png', alt: t('title') }));
       this.layers.fx.appendChild(this.titleEl);
     } else if (this.titleEl) {
       const el = this.titleEl;
@@ -333,14 +338,17 @@ export class Screens {
       haul.appendChild(h('div', { class: 'it' }, icon(k, 28), num));
       haulEls.push({ num, n: counts[k] });
     }
-    if (haulEls.length) { kids.push(h('div', { class: 'rsec', text: t('res.got') })); kids.push(haul); }
-    else if (res.success) kids.push(h('div', { class: 'sub', text: t('res.empty') }));
-    // lost
-    if (!res.success && Object.keys(res.lostCounts).length) {
+    const lostKinds = !res.success ? Object.keys(res.lostCounts) : [];
+    if (lostKinds.length) {
+      // swept: what you kept and what the sea took, side by side
       const lost = h('div', { class: 'haul lost' });
       for (const [k, v] of Object.entries(res.lostCounts)) lost.appendChild(h('div', { class: 'it' }, icon(k, 28), String(v)));
-      kids.push(h('div', { class: 'rsec', text: t('res.lost') }), lost);
-    }
+      // columns share the width by how many chips each holds, so neither wraps early
+      kids.push(h('div', { class: 'haulpair' },
+        h('div', { style: { flex: String(Math.max(1, haulEls.length)) } }, h('div', { class: 'rsec', text: t('res.got') }), haulEls.length ? haul : h('div', { class: 'sub', text: '-' })),
+        h('div', { style: { flex: String(lostKinds.length) } }, h('div', { class: 'rsec', text: t('res.lost') }), lost)));
+    } else if (haulEls.length) { kids.push(h('div', { class: 'rsec', text: t('res.got') })); kids.push(haul); }
+    else if (res.success) kids.push(h('div', { class: 'sub', text: t('res.empty') }));
     // chests, treasures, letters
     for (const c of sum.chests) {
       const line = h('div', { class: 'chestline' }, icon('chest', 24), '→');
@@ -353,9 +361,11 @@ export class Screens {
     if (sum.record) kids.push(h('div', { class: 'sub', text: t('res.new_record', { n: sum.furthest }) }));
     // why it went wrong + minimap
     if (!res.success && res.analysis) {
-      kids.push(h('div', { class: 'why', text: this.whyText(res.analysis) }));
+      const why = h('div', { class: 'why', text: this.whyText(res.analysis) });
       const mm = this.minimap(res);
-      if (mm) kids.push(mm);
+      // a tall, narrow map sits beside the explanation so both fit on short phones
+      if (mm && mm.narrow) kids.push(h('div', { class: 'whyrow' }, mm.el, h('div', { class: 'whycol' }, why, mm.key)));
+      else { kids.push(why); if (mm) kids.push(mm.el, mm.key); }
       if (buildingLevel(s, 'haenyeo') && sum.fails >= 2) kids.push(h('div', { class: 'sub', text: t('res.granny_tip') }));
     }
     if (ctx.toppedUp) kids.push(h('div', { class: 'sub', text: t('res.topped_up') }));
@@ -364,8 +374,8 @@ export class Screens {
     if (bid) {
       const nb = nextBuild(s, bid);
       const bb = btn(t('res.build_now'), 'primary pulse', () => app.buildFromResults(bid), { icon: 'hammer', iconSize: 24 });
-      bb.style.minHeight = '48px'; bb.style.fontSize = '15px';
-      kids.push(h('div', { class: 'buildcard' }, icon('hammer', 28), h('div', { class: 't', text: t('res.build_ready', { b: BNAME(bid) }) + (nb.level > 1 ? ` (${t('b.level', { lv: nb.level })})` : '') }), bb));
+      bb.style.minHeight = '48px'; bb.style.fontSize = '15px'; bb.style.paddingLeft = bb.style.paddingRight = '8px';
+      kids.push(h('div', { class: 'buildcard' }, icon('hammer', 28), h('div', { class: 't', text: t('res.build_ready', { b: BNAME(bid) }) + (nb.level > 1 ? ` (${t('b.level', { lv: nb.level }).replace(/ /g, '\u00a0')})` : '') }), bb));
     }
     // assist offer after repeated misses
     if (!sum.bits && sum.fails >= BAL.assist.afterFails && !ctx.daily) {
@@ -443,13 +453,19 @@ export class Screens {
     const w = this.app.world;
     const m = w.m;
     if (!res.trace || !res.trace.length) return null;
-    const minY = Math.max(0, Math.min(...res.trace.map((p) => p.y)) - 24);
-    const maxY = Math.min(m.Hp, w.islandTop + 40);
-    const sc = 0.5;
+    const a = res.analysis;
+    // show the stretch that explains the miss: from where you should have turned back (or were swept) down to the island
+    const keyYs = [a && a.turnAt ? a.turnAt.y : null, res.sweptAt ? res.sweptAt.y : null].filter((v) => v !== null);
+    const top = keyYs.length ? Math.min(...keyYs) : Math.min(...res.trace.map((p) => p.y));
+    const minY = Math.max(0, top - 40);
+    const maxY = Math.min(m.Hp, w.islandTop + 32);
+    // drawn at display size so the marks stay crisp and readable
+    const maxH = Math.max(110, Math.min(220, Math.round(window.innerHeight * 0.24)));
+    const sc = Math.min(1, maxH / (maxY - minY), 150 / m.Wp);
     const W = Math.round(m.Wp * sc), H = Math.round((maxY - minY) * sc);
     const cv = h('canvas', { class: 'minimap', width: W, height: H });
-    cv.style.width = W * 2 + 'px';
-    cv.style.height = H * 2 + 'px';
+    cv.style.width = W + 'px';
+    cv.style.height = H + 'px';
     const ctx = cv.getContext('2d');
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(w.terrain, 0, minY, m.Wp, maxY - minY, 0, 0, W, H);
@@ -458,40 +474,42 @@ export class Screens {
     ctx.fillStyle = 'rgba(63,141,176,0.75)';
     for (let y = 0; y < H; y++) {
       for (let x = 0; x < W; x++) {
-        const k = Math.round(minY + y / sc) * m.Wp + Math.round(x / sc);
+        const k = Math.min(m.Hp - 1, Math.round(minY + y / sc)) * m.Wp + Math.min(m.Wp - 1, Math.round(x / sc));
         if (lv > m.floodPx[k]) ctx.fillRect(x, y, 1, 1);
       }
     }
-    // path
-    ctx.strokeStyle = '#fff6e0'; ctx.lineWidth = 1;
+    const P = (x, y) => [x * sc, (y - minY) * sc];
+    // your path, then the way home you could have taken
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#fff6e0';
     ctx.beginPath();
-    res.trace.forEach((p, i) => { const x = p.x * sc, y = (p.y - minY) * sc; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
+    res.trace.forEach((p, i) => { const [x, y] = P(p.x, p.y); if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
     ctx.stroke();
-    const a = res.analysis;
     if (a && a.path && a.path.length) {
       ctx.strokeStyle = '#ffd75e';
-      ctx.setLineDash([2, 2]);
+      ctx.setLineDash([3, 3]);
       ctx.beginPath();
-      a.path.forEach(([x, y], i) => { if (i) ctx.lineTo(x * sc, (y - minY) * sc); else ctx.moveTo(x * sc, (y - minY) * sc); });
+      a.path.forEach(([px, py], i) => { const [x, y] = P(px, py); if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
       ctx.stroke();
       ctx.setLineDash([]);
     }
-    if (a && a.turnAt) { // flag: square
-      const x = a.turnAt.x * sc, y = (a.turnAt.y - minY) * sc;
-      ctx.fillStyle = '#2b1d14'; ctx.fillRect(x - 3, y - 3, 7, 7);
-      ctx.fillStyle = '#ffd75e'; ctx.fillRect(x - 2, y - 2, 5, 5);
+    if (a && a.turnAt) { // turn back here: a square
+      const [x, y] = P(a.turnAt.x, a.turnAt.y);
+      ctx.fillStyle = '#2b1d14'; ctx.fillRect(Math.round(x) - 5, Math.round(y) - 5, 11, 11);
+      ctx.fillStyle = '#ffd75e'; ctx.fillRect(Math.round(x) - 3, Math.round(y) - 3, 7, 7);
     }
-    if (res.sweptAt) { // X mark
-      const x = Math.round(res.sweptAt.x * sc), y = Math.round((res.sweptAt.y - minY) * sc);
+    if (res.sweptAt) { // swept here: an X
+      const [fx, fy] = P(res.sweptAt.x, res.sweptAt.y);
+      const x = Math.round(fx), y = Math.round(fy);
       ctx.fillStyle = '#2b1d14';
-      for (let i = -3; i <= 3; i++) { ctx.fillRect(x + i - 1, y + i - 1, 3, 3); ctx.fillRect(x + i - 1, y - i - 1, 3, 3); }
+      for (let i = -4; i <= 4; i++) { ctx.fillRect(x + i - 1, y + i - 1, 3, 3); ctx.fillRect(x + i - 1, y - i - 1, 3, 3); }
       ctx.fillStyle = '#ffffff';
-      for (let i = -2; i <= 2; i++) { ctx.fillRect(x + i, y + i, 1, 1); ctx.fillRect(x + i, y - i, 1, 1); }
+      for (let i = -3; i <= 3; i++) { ctx.fillRect(x + i, y + i, 1, 1); ctx.fillRect(x + i, y - i, 1, 1); }
     }
     const key = h('div', { class: 'mapkey' },
       h('span', {}, h('i', { style: { background: '#ffd75e' } }), t('res.map_turn')),
       h('span', {}, h('i', { style: { background: '#fff', transform: 'rotate(45deg)' } }), t('res.map_swept')));
-    return h('div', {}, cv, key);
+    return { el: cv, key, narrow: W < 160 };
   }
 
   // ---------- popups ----------
@@ -546,7 +564,9 @@ export class Screens {
     body.appendChild(this.buildPreview(id, prevLv));
     let foot = null;
     if (!nb) {
-      body.appendChild(h('p', { text: t('b.max') }));
+      // fully built: say what it does now, not just that it's done
+      body.appendChild(h('p', { text: bnow(id, lv) }));
+      body.appendChild(h('div', { class: 'maxnote' }, icon('check', 20), t('b.max')));
     } else if (!plotAvailable(s, id)) {
       body.appendChild(h('p', { text: bdesc(id, nb.level) }));
       body.appendChild(h('p', { text: t('b.locked', { n: def.unlockCleared - clearedCount(s) }) }));

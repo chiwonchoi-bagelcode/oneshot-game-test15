@@ -281,7 +281,7 @@ export class World {
       this.gapT = 0.1;
       let gap = 99;
       for (let dy = 4; dy < 48; dy += 4) if (m.depth(p.x, p.y - dy, lv) > 0) { gap = dy; break; }
-      if (gap < 40) this.nearT = this.runT;
+      if (gap < BAL.closeCall.behindPixels) this.nearT = this.runT;
     }
     const danger = d > 0 ? clamp(d / BAL.move.sweptDepth, 0, 1) : (d > -BAL.move.wetBand && !onSafe ? 0.04 : 0);
     this.danger = danger;

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Low Tide Island · Release</title>
+<link rel="icon" href="icon-512.png">
+<style>
+:root { --bg: #f6ecd2; --ink: #2b1d14; --sub: #6b4a2a; --card: #fffaf0; --line: #d9c59a; --sea: #2c638e; --sea2: #3f8db0; --gold: #ffd75e; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+header { background: linear-gradient(#2c638e, #3f8db0); color: #fff6e0; padding: 28px 16px 22px; text-align: center; }
+header img.logo { width: 272px; max-width: 80vw; image-rendering: pixelated; }
+header p { margin: 8px auto 14px; max-width: 640px; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+nav a { background: var(--gold); color: var(--ink); text-decoration: none; font-weight: 700; padding: 10px 16px; border-radius: 10px; border: 2px solid var(--ink); box-shadow: 0 3px 0 var(--ink); }
+main { max-width: 1080px; margin: 0 auto; padding: 8px 16px 64px; }
+section { background: var(--card); border: 2px solid var(--line); border-radius: 14px; padding: 18px; margin: 18px 0; }
+h2 { margin: 0 0 12px; font-size: 22px; }
+h3 { margin: 18px 0 6px; font-size: 17px; }
+.row { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+.play { display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; }
+.phone { width: 360px; max-width: 100%; height: 640px; border: 10px solid #222; border-radius: 28px; overflow: hidden; background: #000; flex: none; }
+.phone iframe { width: 100%; height: 100%; border: 0; display: block; }
+video { width: 300px; max-width: 100%; border-radius: 10px; background: #000; display: block; }
+.vid { flex: 1 1 280px; max-width: 320px; }
+.cap { font-size: 13px; color: var(--sub); margin-top: 6px; }
+.shots { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.shots a img { width: 100%; border-radius: 8px; border: 1px solid var(--line); display: block; }
+.tabs button { font: inherit; font-weight: 700; padding: 8px 14px; min-height: 44px; border: 2px solid var(--ink); background: #fff; border-radius: 10px; cursor: pointer; margin-right: 6px; }
+.tabs button[aria-selected="true"] { background: var(--gold); }
+.store { margin-top: 10px; }
+.doc { max-height: 70vh; overflow: auto; border-top: 1px solid var(--line); margin-top: 10px; padding-top: 6px; }
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; margin: 8px 0; font-size: 14px; }
+th, td { border: 1px solid var(--line); padding: 4px 8px; text-align: left; vertical-align: top; }
+th { background: #f3e5c3; }
+code { background: #f1e6cc; padding: 0 4px; border-radius: 4px; }
+pre { background: #2b1d14; color: #f6ecd2; padding: 10px; border-radius: 8px; overflow-x: auto; }
+blockquote { margin: 8px 0; padding: 4px 12px; border-left: 4px solid var(--line); color: var(--sub); }
+ul.files { columns: 2 280px; }
+.feature { width: 100%; max-width: 1024px; border-radius: 10px; display: block; image-rendering: auto; }
+.icon { width: 128px; height: 128px; border-radius: 28px; image-rendering: pixelated; border: 1px solid var(--line); }
+details summary { cursor: pointer; font-weight: 700; padding: 6px 0; min-height: 44px; display: flex; align-items: center; }
+@media (max-width: 420px) { .phone { width: 100%; height: 560px; border-width: 6px; } }
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" src="../assets/logo.png" alt="물때 섬 Low Tide Island">
+  <p>물이 빠진 갯벌에서 줍고, 물이 차기 전에 돌아와, 빈 섬을 마을로 키우는 세로형 한 손 게임.<br>Grab what the tide leaves, beat it home, and grow an empty island into a village.</p>
+  <nav>
+    <a href="../index.html">게임 하기 · Play</a>
+    <a href="../tools/editor.html">레벨 에디터 · Level editor</a>
+    <a href="#plan">기획서 · Plan</a>
+    <a href="#report">보고서 · Report</a>
+  </nav>
+</header>
+<main>
+<section>
+  <h2>바로 플레이 · Play here</h2>
+  <div class="play">
+    <div class="phone"><iframe src="../index.html" title="Low Tide Island" allow="autoplay; vibrate"></iframe></div>
+    <div style="flex:1 1 260px">
+      <p>왼쪽 화면에서 바로 플레이할 수 있어요. 화면 어디든 끌어서 걷고, 물건 위를 지나가면 줍습니다. 물이 차기 전에 아래쪽 섬으로 돌아오세요. 새 창으로 열려면 <a href="../index.html">게임 하기</a>.</p>
+      <p>Play in the frame. Drag anywhere to walk; walk over things to pick them up; get back to the island before the tide does. Open <a href="../index.html">full screen</a>.</p>
+      <p class="cap">진행은 이 브라우저에 저장됩니다(localStorage). Progress is saved in this browser.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>트레일러 · Trailer</h2>
+  <div class="row">
+    <div class="vid"><video controls playsinline preload="metadata" src="trailer.mp4"><track kind="subtitles" srclang="en" label="English" src="subtitles/trailer.en.vtt"><track kind="subtitles" srclang="ko" label="한국어" src="subtitles/trailer.ko.vtt" default></video><div class="cap">본편 (자막 트랙 ko/en) · Main cut with ko/en subtitle tracks<br>27.1s · 1080×1920 h264 · 12.6MB · 2 subtitle tracks</div></div>
+    <div class="vid"><video controls playsinline preload="metadata" src="video/trailer_ko.mp4"></video><div class="cap">한국어 자막 버전 · Korean captions burned in<br>27.2s · 1080×1920 h264 · 13.0MB</div></div>
+    <div class="vid"><video controls playsinline preload="metadata" src="video/trailer_en.mp4"></video><div class="cap">English cut (English UI, captions burned in)<br>27.2s · 1080×1920 h264 · 13.2MB</div></div>
+  </div>
+  <p class="cap">자막 파일 · Subtitle files: <a href="subtitles/trailer.en.srt">trailer.en.srt</a> · <a href="subtitles/trailer.en.vtt">trailer.en.vtt</a> · <a href="subtitles/trailer.ko.srt">trailer.ko.srt</a> · <a href="subtitles/trailer.ko.vtt">trailer.ko.vtt</a></p>
+</section>
+
+<section>
+  <h2>스토어 등록 정보 · Store listing</h2>
+  <div class="row">
+    <div><img class="icon" src="icon-512.png" alt="app icon"><div class="cap">icon-512.png (512×512)</div></div>
+    <div style="flex:1 1 320px"><img class="feature" src="feature-1024x500.png" alt="feature graphic"><div class="cap">feature-1024x500.png</div></div>
+  </div>
+  <h3>스크린샷 · Screenshots</h3>
+  <div class="shots">
+    <a href="screenshots/en_01_pick.png"><img src="screenshots/en_01_pick.png" alt="en_01_pick.png" loading="lazy"></a>
+    <a href="screenshots/en_02_race.png"><img src="screenshots/en_02_race.png" alt="en_02_race.png" loading="lazy"></a>
+    <a href="screenshots/en_03_swept.png"><img src="screenshots/en_03_swept.png" alt="en_03_swept.png" loading="lazy"></a>
+    <a href="screenshots/en_04_village.png"><img src="screenshots/en_04_village.png" alt="en_04_village.png" loading="lazy"></a>
+    <a href="screenshots/ko_01_pick.png"><img src="screenshots/ko_01_pick.png" alt="ko_01_pick.png" loading="lazy"></a>
+    <a href="screenshots/ko_02_race.png"><img src="screenshots/ko_02_race.png" alt="ko_02_race.png" loading="lazy"></a>
+    <a href="screenshots/ko_03_swept.png"><img src="screenshots/ko_03_swept.png" alt="ko_03_swept.png" loading="lazy"></a>
+    <a href="screenshots/ko_04_village.png"><img src="screenshots/ko_04_village.png" alt="ko_04_village.png" loading="lazy"></a>
+  </div>
+  <div class="cap">8 × 1080×1920 PNG</div>
+  <h3>문구 · Text</h3>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-t="ko">한국어</button><button role="tab" aria-selected="false" data-t="en">English</button></div>
+  <div class="store" id="store-ko"><h2>물때 섬 — 스토어 문구 (한국어)</h2>
+<h3>앱 이름 (30자 이내)</h3>
+<p>물때 섬</p>
+<h3>짧은 설명 (Google Play, 80자 이내)</h3>
+<p>물 빠진 갯벌에서 줍고, 물이 차기 전에 돌아와 빈 섬을 마을로 키우세요.</p>
+<h3>부제 (App Store, 30자 이내)</h3>
+<p>하나만 더? 물이 차기 전에!</p>
+<h3>홍보 문구 (App Store, 170자 이내)</h3>
+<p>엄지 하나로 갯벌을 달리며 줍고, 발밑까지 따라온 물을 등지고 섬에 닿는 순간. 주워 온 것으로 데크길과 집, 등대를 세워 더 먼 모래톱까지 가 보세요.</p>
+<h3>자세한 설명</h3>
+<p>물이 빠졌어요. 반짝이는 조개와 유목, 바다유리가 갯벌에 가득합니다. 하지만 물은 곧 돌아와요. 바깥 바다와 낮은 갯골부터, 눈에 보이게.</p>
+<p><strong>하나만 더 주울까, 지금 돌아갈까?</strong> 멀리 갈수록 귀한 것이 있고, 자루가 무거울수록 걸음이 느려집니다. 물이 발뒤꿈치까지 따라온 채 섬에 닿는 그 한 걸음, 뒤에서 파도가 부서지고 주워 온 것이 와르르 쏟아집니다.</p>
+<p><strong>휩쓸려도 괜찮아요</strong> 물에 휩쓸리면 마지막에 주운 것부터 절반을 잃고 섬으로 떠밀려 옵니다. 나머지 절반은 그대로 남아요. 결과 화면이 "마지막에 주운 유목 2개만 두고 돌아섰다면 닿았어요"처럼 실제 기록으로 이유를 보여 주고, 작은 지도에 돌아섰어야 할 곳을 표시해 줍니다.</p>
+<p><strong>짓는 만큼 섬이 넓어져요</strong></p>
+<ul><li>데크길: 갯골을 건너 지난번엔 못 가던 모래톱까지</li><li>내 오두막: 더 큰 자루</li><li>뻘배 헛간: 느리던 뻘이 지름길로</li><li>등대: 안개가 걷히고, 돌아갈 때를 종으로 알려 줌</li><li>해녀의 집, 장대 쉼터, 그리고 꽃밭·등불·우물 같은 꾸미기</li></ul>
+<p>건물 6종 12단계, 꾸미기 6종. 몇 채만 지어도 섬과 다음 판의 길이 눈에 띄게 달라집니다.</p>
+<p><strong>오늘도 물때가 바뀌어요</strong></p>
+<ul><li>손으로 다듬은 물때 40개 (느긋한 판, 생각하는 판, 새로 발견하는 판)</li><li>날마다 바뀌는 오늘의 물때</li><li>밤사이 파도가 두고 간 선물, 할머니의 부탁</li><li>옛 마을의 물건 12가지와 병 속 편지 8통</li></ul>
+<p><strong>이렇게 즐겨요</strong></p>
+<ul><li>세로 화면, 한 손 조작: 화면 어디든 끌어서 이동, 지나가면 자동으로 줍기</li><li>한 판에 1분이 채 안 걸려요</li><li>첫날에는 기다리는 시간도, 에너지 제한도 없어요. 지으면 바로 섭니다.</li><li>광고와 결제가 없어요. 상점도, 유료 재화도 없습니다.</li><li>인터넷 연결 없이 플레이할 수 있어요.</li><li>한국어, English</li><li>색만으로 구분하지 않는 화면(밝기·무늬·진동·글자로 위험을 알림), 진동·음악·효과음 각각 끄기</li></ul>
+<h3>키워드 (App Store, 100바이트 이내)</h3>
+<p>갯벌,물때,섬,힐링,픽셀,한손,캐주얼,수집,건설,마을</p>
+<h3>카테고리</h3>
+<p>캐주얼 (보조: 시뮬레이션)</p>
+<h3>연령 등급 참고</h3>
+<p>폭력·선정성·도박 요소 없음, 광고·결제 없음, 개인정보 수집 없음(분석 이벤트는 기기 안에만 쌓이며 외부로 보내지 않음)</p></div>
+  <div class="store" id="store-en" hidden><h2>Low Tide Island — Store Listing (English)</h2>
+<h3>App name (30 characters max)</h3>
+<p>Low Tide Island</p>
+<h3>Short description (Google Play, 80 characters max)</h3>
+<p>Grab treasures on the tidal flats, beat the tide home, and build up your island.</p>
+<h3>Subtitle (App Store, 30 characters max)</h3>
+<p>One more shell? Mind the tide!</p>
+<h3>Promotional text (App Store, 170 characters max)</h3>
+<p>Race across the flats with one thumb, then make it home with the sea at your heels. Build boardwalks, cottages and a lighthouse to reach sandbars further out.</p>
+<h3>Full description</h3>
+<p>The tide is out. The flats are full of shells, driftwood and sea glass. But the water is coming back. It creeps in from the open sea and fills the low creeks first, right where you can see it.</p>
+<p><strong>One more, or head back now?</strong> The best finds lie further out, and every pickup makes your sack heavier and your steps slower. Reach the island with the water at your heels, hear the wave crash behind you, and watch your haul pour out of the sack.</p>
+<p><strong>Getting swept is not the end</strong> If the sea catches you, you lose half your sack, starting with the last things you picked up, and wash ashore with the rest. The results screen uses your actual run to show what happened, for example: "Leave the last 2 driftwood and you would have made it", with a small map marking where you should have turned back.</p>
+<p><strong>Build to go further</strong></p>
+<ul><li>Boardwalk: cross the creeks to sandbars you could not reach before</li><li>My Cottage: a bigger sack</li><li>Mud Sled Shed: the slow mud becomes a shortcut</li><li>Lighthouse: clears the fog and rings a bell when it is time to head back</li><li>Diver's House, the Stilt Hut, and decorations like flower beds, lanterns and a well</li></ul>
+<p>6 buildings with 12 upgrades, 6 kinds of decorations. Just a few buildings visibly change the island and the routes you take next time.</p>
+<p><strong>A new tide every day</strong></p>
+<ul><li>40 hand-made tides: easy ones, tricky ones, and ones with something new to find</li><li>A Daily Tide that changes every day</li><li>Gifts the waves leave overnight, and favors for Grandma</li><li>12 relics of the old village and 8 letters in bottles to find</li></ul>
+<p><strong>How it plays</strong></p>
+<ul><li>Portrait, one hand: drag anywhere to walk, walk over things to pick them up</li><li>Each run takes under a minute</li><li>No energy, no build timers on your first day. Buildings go up right away.</li><li>No ads and no in-app purchases. No shop, no premium currency.</li><li>Plays offline</li><li>English and Korean</li><li>Danger is shown with brightness, patterns, vibration and text, not color alone; music, sound effects and vibration can each be turned off</li></ul>
+<h3>Keywords (App Store, 100 bytes max)</h3>
+<p>tide,island,beach,cozy,pixel,one hand,casual,collect,build,village</p>
+<h3>Category</h3>
+<p>Casual (secondary: Simulation)</p>
+<h3>Content rating notes</h3>
+<p>No violence, gambling or mature content. No ads or purchases. No personal data collected (analytics events stay on the device and are not sent anywhere).</p></div>
+</section>
+
+<section id="plan">
+  <h2>기획서 · Plan</h2>
+  <p><a href="plan.md">plan.md</a></p>
+  <details><summary>펼쳐 보기 · Read</summary><div class="doc"><h2>물때 섬 (Low Tide Island) — 기획서</h2>
+<blockquote>반복할 때마다 고치는 기획서입니다. 맨 아래 <strong>변경 이력</strong>에 무엇을 왜 바꿨는지, 시도했다가 버린 것을 남깁니다.</blockquote>
+<h3>1. 한 줄 소개</h3>
+<p>물이 빠진 갯벌을 엄지 하나로 달리며 줍고, 물이 다시 차오르기 전에 섬으로 돌아와, 주워 온 것으로 빈 섬을 마을로 키우는 세로형 한 손 게임.</p>
+<h3>2. 누가, 언제, 왜 재미있나</h3>
+<div class="tbl"><table><thead><tr><th>누가</th><th>언제</th><th>왜</th></tr></thead><tbody><tr><td>출퇴근길·쉬는 시간에 한 손으로 노는 사람</td><td>한 판 35~55초</td><td>판이 짧고, 끝날 때마다 섬에 무언가가 남는다</td></tr><tr><td>아슬아슬한 판단을 즐기는 사람</td><td>물이 발밑까지 왔을 때</td><td>"하나만 더"와 "지금 돌아가"를 매 순간 스스로 고른다</td></tr><tr><td>꾸미고 둘러보는 걸 좋아하는 사람</td><td>판이 끝난 뒤 섬 화면</td><td>빈 섬에 데크길·집·등대가 서고 주민이 들어온다</td></tr></tbody></table></div>
+<p>재미의 핵심 순간:</p>
+<ol><li><strong>줄줄이 줍기</strong> — 반짝이는 조개 줄을 따라 달리면 톡-톡-톡 음이 반음씩 올라가며 자루로 빨려 들어간다(연속 줍기 0.75초 안).</li><li><strong>하나만 더?</strong> — 귀한 것은 멀리, 물이 먼저 들어오는 낮은 곳에 있다. 자루는 무겁고, 물은 보인다.</li><li><strong>마지막 한 걸음</strong> — 발밑까지 따라온 물을 등지고 섬에 닿는 순간 슬로 모션, 뒤에서 파도가 부서지고 "아슬아슬!" 도장이 찍힌다.</li><li><strong>쏟아지는 수확</strong> — 자루를 내려놓으면 주운 것이 하나씩 분수처럼 쏟아지고 음이 올라간다.</li><li><strong>지난번엔 못 가던 곳</strong> — 데크길이 갯골을 건너자, 같은 갯벌에서 고르는 길이 달라진다.</li></ol>
+<h3>3. 조작</h3>
+<ul><li><strong>끌어서 이동</strong>: 화면 어디든 엄지를 대고 끌면 그 방향으로 걷는다(떠 있는 조이스틱, 반경 밖으로 끌면 중심이 따라와 방향 전환이 즉각적). 손을 떼면 멈춘다.</li><li><strong>자동 줍기</strong>: 물건 위를 지나가면 줍는다. 자루가 가득 차면 더 줍지 않고 "가방이 가득!"이 뜬다.</li><li><strong>섬에 닿으면 끝</strong>: 물건을 든 채 섬(마른 모래·풀밭)에 발을 디디면 판이 끝난다.</li><li>섬 화면에서는 <strong>탭</strong>: 팻말을 눌러 짓기, 버튼으로 다음 물때.</li></ul>
+<h3>4. 한 판의 흐름</h3>
+<ol><li><strong>갯벌로 나가기</strong> → 물이 쭉 빠지며 반짝이는 갯벌이 드러난다(1.6초, 탭으로 넘김). 목표가 아이콘으로 뜬다.</li><li>첫 이동부터 물때가 흐른다. 처음 절반은 물이 멀리서 거의 멈춰 있고(썰물), 뒤로 갈수록 빨라진다(밀물, 물때 곡선 지수 2.2~3.0).</li><li>물은 <strong>바깥(수평선과 양옆)과 낮은 갯골</strong>부터 들어온다. 물이 오기 직전의 모래는 젖어서 짙어진다.</li><li>자루 무게가 찰수록 느려진다(가득 차면 50% 속도). 자루 크기가 캐릭터 등에서 커진다.</li><li>발이 잠기면 첨벙거리며 느려지고(78%→42%), 깊이가 7이 되면 휩쓸린다. 위험할수록 화면 테두리가 물빛으로 숨쉬고 심장 박동 진동이 온다.</li><li><strong>귀환</strong>: 섬에 닿으면 수확이 쏟아지고 결과 → (지을 수 있으면) 바로 짓기 → 다음 물때.</li><li><strong>휩쓸림</strong>: 가장 <strong>나중에 주운 것부터 절반</strong>이 떠내려가고 나머지 절반을 안고 섬에 떠밀려 온다. 결과 화면이 실제 기록으로 "마지막에 주운 유목 2개만 두고 돌아섰다면 섬에 닿았어요"를 계산해 보여 주고, 작은 지도에 <strong>돌아섰어야 할 곳(■)과 휩쓸린 곳(×)</strong>, 그때의 물, 돌아오는 길을 그린다.</li></ol>
+<h3>5. 판단을 만드는 장치 (실제 수치)</h3>
+<div class="tbl"><table><thead><tr><th>장치</th><th>수치</th><th>판단</th></tr></thead><tbody><tr><td>거리-가치</td><td>조개1·유목2 (가까움) → 바다유리3·밧줄3 → 진주8·상자14 (멂)</td><td>가까운 흔한 것 vs 먼 귀한 것</td></tr><tr><td>무게</td><td>조개·유리·진주 1, 유목·밧줄 2, 상자 5 / 자루 16→20→26→32</td><td>무거운 걸 집는 순간 돌아오는 시간이 늘어난다</td></tr><tr><td>갯골이 먼저 찬다</td><td>갯골은 주변보다 24 낮다</td><td>마른 모래톱보다 돌아오는 길이 먼저 막힌다</td></tr><tr><td>뻘</td><td>걷는 속도 60%</td><td>뻘 속 물건은 많지만 느리다</td></tr><tr><td>밀물 속도</td><td>마지막 20%에서 물가가 초당 2.2~3.3칸 전진</td><td>짐을 진 걸음(초당 약 2.6칸)과 비슷해 "따라온다"</td></tr><tr><td>물건이 떠내려감</td><td>물 깊이 1.6 이상이면 둥둥 떠서 사라짐</td><td>물가의 반짝임은 지금 아니면 없다</td></tr></tbody></table></div>
+<h3>6. 성장 — "숫자보다 공간"</h3>
+<div class="tbl"><table><thead><tr><th>건물</th><th>단계</th><th>다음 판에서 달라지는 것</th></tr></thead><tbody><tr><td>데크길</td><td>1~3</td><td>섬에서 12/28/43칸 나무길. 1단계로 첫 갯골, 2단계로 둘째 갯골, 3단계로 깊은 물길을 건넌다. 데크는 30% 빠르고 갯벌보다 14 높아 <strong>먼 끝부터 늦게</strong> 잠긴다 → 같은 갯벌에서 더 오래 머물 수 있다</td></tr><tr><td>내 오두막</td><td>1~3</td><td>자루 무게 16→20→26→32</td></tr><tr><td>해녀의 집</td><td>1</td><td>할머니가 이사 와 매일 부탁 3개(남는 조개·유리를 받고 유목·밧줄·진주로 답례), 막힐 때 조언</td></tr><tr><td>뻘배 헛간</td><td>1~2</td><td>뻘 위 속도 60%→100%→120% (느리던 뻘이 지름길)</td></tr><tr><td>등대</td><td>1~2</td><td>1: 먼 바다 안개가 걷히고 돌아갈 때 종을 친다 / 2: 종이 울리면 가장 빠른 귀갓길을 불빛으로 비춘다</td></tr><tr><td>장대 쉼터</td><td>1</td><td>먼 모래톱의 두 번째 안전지대. 사다리에 닿으면 나룻배가 섬으로 태워 준다</td></tr></tbody></table></div>
+<p>꾸미기 6종(꽃밭·등불·벤치·깃발·조개 풍경·우물), 12자리, 놓을 때마다 비용 40%씩 증가 → 끝없이 남는 재료를 쓸 곳.</p>
+<h3>7. 레벨과 난이도 곡선 (물때 40개, 4장)</h3>
+<div class="tbl"><table><thead><tr><th>장</th><th>물때</th><th>새로 나오는 것</th><th>필요한 건물</th></tr></thead><tbody><tr><td>1 앞갯벌</td><td>1~10</td><td>1 줍기·귀환 / 2 데크길로 갯골 건너기 / 3 무게 / 4 상자 / 5 뻘 / 6 바다유리 / 7 빠른 밀물 / 8 갈림길 / 9 밧줄 / 10 큰 썰물(진주)</td><td>2부터 데크길 1</td></tr><tr><td>2 모래톱</td><td>11~22</td><td>둘째 갯골 너머, 안개(14·17), 넓은 갯골, 병 속 편지</td><td>데크길 2</td></tr><tr><td>3 먼 모래톱</td><td>23~33</td><td>등대의 종, 깊은 물길 너머(27·31·33), 장대 쉼터(28)</td><td>등대 1, 데크길 3, 쉼터</td></tr><tr><td>4 수평선</td><td>34~40</td><td>수평선 모래톱, 난파선, 마지막 편지</td><td>데크길 3 (+36 쉼터, 39 등대 2)</td></tr></tbody></table></div>
+<ul><li>판마다 종류를 섞는다: <strong>느긋하게(easy) / 생각하게(think) / 새로운 발견(discover)</strong>. 어려운 판 뒤에는 느긋한 판을 둔다(15 → 16, 21 → 22).</li><li>별 3개 = 목표 1개(완료 조건) + 별 목표 2개. 별은 판을 여러 번 해서 모을 수 있다.</li><li>매일 바뀌는 <strong>오늘의 물때</strong>(사리·불가사리·바다유리·빠른 밀물 4종, 날짜로 생성, 데크길 단계에 맞춘 크기).</li></ul>
+<h4>자동 검증 (tools/levels/validate.mjs)</h4>
+<ul><li>구조: 지도 크기·문자, 데크길 자리의 바위, 바위·바다 위 물건, 목표 수만큼 물건이 있는지.</li><li>풀이: 시간에 따라 잠기는 지형 위의 경로 탐색(빔 서치)으로 <strong>사람 속도 85%로 목표 달성+귀환</strong>, <strong>95%로 별 2·3</strong>이 가능한지. 하나라도 불가면 실패.</li><li>긴장 지표: 욕심 봇 4종(가치를 쫓는 무모한/보통, 가까운 것부터, 조심스러운)이 왜 멈췄는지(자루 가득/물), 언제 멈췄는지, 휩쓸렸는지. 1장은 모두 귀환, 2장부터 가치를 쫓는 무모한 봇이 휩쓸리기 시작하도록 맞췄다.</li><li>오늘의 물때 120일 × 데크길 3단계 = 360개도 같은 방식으로 검증.</li></ul>
+<h4>막혔을 때 돕는 장치</h4>
+<ol><li>휩쓸린 뒤 결과 화면의 원인 계산과 지도(■ 돌아섰어야 할 곳).</li><li>같은 물때를 2번 연속 못 깨면 <strong>"물 천천히 다시 하기"</strong>(이번 판만 물이 15% 천천히) 버튼.</li><li>해녀의 집이 있으면 할머니의 조언.</li><li>실패해도 절반은 남아 건물을 지을 수 있고, 건물이 다음 판을 쉽게 만든다.</li><li>첫 판 뒤에는 데크길 재료가 모자라면 채워 준다(첫 건물 보장).</li></ol>
+<h4>첫날 이탈 원인 판별 기준</h4>
+<div class="tbl"><table><thead><tr><th>신호 (분석 이벤트)</th><th>판단</th></tr></thead><tbody><tr><td><code>tutorial_complete</code> 전에 <code>session_end</code></td><td>첫 판 진입·조작 문제 (로딩, 조작 이해)</td></tr><tr><td>같은 <code>level</code>에서 <code>level_fail</code> 3회 이상 후 <code>session_end</code>, <code>cause=greedy</code> 비율 높음</td><td>레벨 난이도(욕심 함정이 너무 가혹)</td></tr><tr><td><code>cause=late</code> 비율 높음</td><td>물때 읽기가 어렵다(시각 단서·종 부족)</td></tr><tr><td><code>run_end</code>는 성공인데 <code>building_built</code> 없이 이탈</td><td>메타 동선(짓기 안내) 문제</td></tr><tr><td><code>level_complete</code> 직후 이탈, 다음 <code>run_start</code> 없음</td><td>결과→다음 판 연결 문제</td></tr><tr><td>첫 판 <code>run_end.seconds</code>가 짧고 <code>items</code> 적음</td><td>첫 판이 너무 밋밋/짧음</td></tr></tbody></table></div>
+<p>판별 지표: D1 잔존, 첫 세션 판 수, 판당 시간, 레벨별 시도·실패·원인, 첫 건물까지 걸린 시간, 별 분포.</p>
+<h3>8. 메타·경제·재방문</h3>
+<ul><li><strong>재화</strong>: 조개·유목·바다유리·밧줄·진주(모두 게임 안에서만 벌고 쓴다). 상자(유리·밧줄·진주·조개 묶음 + 옛 마을의 물건), 유리병(편지), 불가사리(조개 2개).</li><li><strong>얻는 곳</strong>: 물때(주 수입), 밤사이 선물, 오늘의 물때 보상(진주1·유리3), 할머니 답례(유목·밧줄·진주).</li><li><strong>쓰는 곳</strong>: 건물 12단계, 꾸미기 12자리(점점 비싸짐), 할머니 부탁(남는 조개·유리).</li><li><strong>진행 시뮬레이션 (tools/levels/econ.mjs)</strong>: 계획 기반 플레이어(휩쓸림 8~30%)로 110판 진행. 건물은 1·4·5·9·13·16·19·22·28·33·39·45판째 지어진다. 사람은 이보다 약 1.5배 느리다고 보면 첫날(20~40판) 2장 중반, 2~4일째 3·4장.</li><li><strong>재방문</strong>: 밤사이 선물(연속 접속일 수에 따라 3→10개, 7일째 진주), 오늘의 물때(5개 클리어 후), 할머니 부탁(해녀의 집 후), 도감(상자·병을 처음 찾으면), 별 모으기, 꾸미기(6개 클리어 후), 다 못 지은 건물과 안개 너머 모래톱이 항상 보인다.</li><li><strong>기능이 열리는 순서</strong>: 1판 데크길 → 1클리어 오두막 → 3클리어 해녀의 집·물때 달력 → 5클리어 뻘배 헛간·오늘의 물때 → 6클리어 꾸미기 → 9클리어 등대 → 17클리어 장대 쉼터.</li><li>첫날 에너지·대기 시간 없음, 건설 즉시. 광고·결제·상점·유료 재화 없음.</li></ul>
+<h3>9. 아트 방향</h3>
+<ul><li>16px 타일 픽셀 아트, 이중 격자(dual-grid) 오토타일(뻘·모래·마른 모래·풀 각 16조각 + 변형 3개), 외곽선은 짙은 갈색.</li><li>물은 픽셀마다 계산: 깊이에 따른 6단 색 + 오더드 디더링, 일렁이는 거품선, 물이 오기 직전 젖어 짙어지는 모래, 섬 가장자리의 만조선(해초·나뭇조각).</li><li>땅·물·캐릭터·물건이 <strong>밝기와 모양</strong>으로도 구분된다(색각 이상 대응): 모래 밝음, 뻘 어두움, 물은 무늬와 거품선, 물건은 외곽선과 반짝임, 위험은 색이 아니라 테두리 숨쉬기·진동·글자로도 알린다.</li><li>캐릭터: 밀짚모자·파란 멜빵바지, 걷기 4프레임 × 3방향, 표정 6종(보통·기쁨·힘듦·걱정·놀람·멍함), 만세·허우적·주저앉기. 자루 5단계.</li><li>UI: 양피지·나무 9-slice, 픽셀 한글 글꼴 갈무리(OFL), 이모지 없음, 아이콘 30여 종.</li></ul>
+<h3>10. 사운드 방향</h3>
+<ul><li>섬: 84BPM F장조, 마림바·칼림바·핑거피킹 기타·패드·셰이커(45.7초 루프).</li><li>갯벌: 116BPM G장조 기본 레이어(칼림바 아르페지오·플루트·마림바) + 같은 박자의 <strong>긴장 레이어</strong>(낮은 현 8분음·톰·트레몰로)가 물때와 위험도에 따라 겹쳐진다.</li><li>효과음 34종: 물건마다 다른 줍기 소리(연속 줍기마다 2반음씩 상승), 젖은 발소리(모래·뻘·물·데크), 등대 종, 파도 부서짐, 휩쓸림, 쏟아지는 수확(음이 올라감), 한숨(안도), 심장 박동, 갈매기.</li><li>진동: 줍기(6ms) &lt; 무거운 것(18ms) &lt; 위험 심장박동 &lt; 귀환 &lt; 아슬아슬 &lt; 휩쓸림. 설정에서 끔, 미지원 기기에서는 조용히 생략.</li></ul>
+<h3>11. 범위에서 뺀 것</h3>
+<ul><li>광고·결제·상점·유료 재화 (요청에 따라 없음)</li><li>실제 조수 데이터·갯벌 생태 재현, 전투, 낚시, 제작 트리</li><li>낮/밤 시간 변화, 주민 대화 (차기 후보)</li></ul>
+<h3>변경 이력</h3>
+<ul><li><strong>v0.1 (기획 착수)</strong>: 첫 건물을 데크길로 정함 — 첫 판 직후 지을 수 있고 다음 판에 바로 "갯골을 건너온다"는 공간 변화를 보여 주기 때문.</li><li><strong>v0.2 (자동 검증 첫 실행)</strong>: 40판 중 26판이 "목표 불가". 원인은 데크길이 실제로 생기지 않던 버그(배열 이름이 <code>length</code>라 <code>length - 1</code>이 NaN). 검증기가 없었다면 2장 이후 전부 막혔을 것.</li><li><strong>v0.3 (긴장 부족)</strong>: 버그를 고치자 모든 봇이 항상 무사 귀환. 갯벌 경사가 가팔라(51줄에 79) 물가가 초당 0.5칸만 움직였고, 데크길은 끝까지 안전한 고속도로였다. → 갯벌을 평평하게(51줄에 43), 밀물을 뒤로 몰고(곡선 2.2~3.0), 데크길을 "갯벌보다 14 높게" 바꿔 먼 끝부터 잠기게 함.</li><li><strong>v0.4 (자루가 먼저 찬다)</strong>: 그래도 봇이 다 귀환. 원인 분석: 모든 봇이 물이 아니라 <strong>자루가 가득 차서</strong> 물때 17~48%에 이미 돌아섰다. → 자루 10→16, 걸음 66→56px/s, 물건을 더 많이·넓게 배치(판당 13~28개), 물때 길이 20% 단축(35~55초). 이제 자루는 물때 40~80%에 차고, 돌아오는 길이 밀물과 겹친다. 2장부터 가치를 쫓는 봇이 휩쓸리기 시작.</li><li><strong>v0.5 (경제)</strong>: 진행 시뮬레이션에서 60판 만에 40판을 다 깨고 조개 345·진주 102가 쌓임 → 건물 비용 2~4배, 꾸미기 12자리·40% 증가. 그러자 유목이 병목(데크길 3·쉼터에서 20~32판 정체) → 후반 비용을 남는 재료(조개·유리) 쪽으로 옮기고, 후반 물때에 유목 추가, 할머니 부탁을 "남는 것을 받고 모자란 것으로 답례"로 바꿈. 정체 구간이 쉼터 11판 하나로 줄었다.</li><li><strong>버린 아이디어</strong>: (1) 물때마다 섬에 내려놓고 다시 나가기 — 귀환이 판의 절정이 되지 못하고 긴장이 흩어져서 버림. (2) 첫 판 휩쓸림 불가 — 위험을 배우지 못해 버리고 대신 "첫 건물 재료 보장"으로 바꿈. (3) 데크길 전체가 만조 직전까지 안전 — 데크 위에서 긴장이 사라져 버림. (4) 별 개수로 장 잠금 — 반복 강요가 될 수 있어 건물 조건만 남김.</li></ul></div></details>
+</section>
+
+<section id="report">
+  <h2>보고서 · Report</h2>
+  <p><a href="report.md">report.md</a></p>
+  <details open><summary>펼쳐 보기 · Read</summary><div class="doc"><p>(report.md not written yet)</p></div></details>
+</section>
+</main>
+<script>
+document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach((x) => x.setAttribute('aria-selected', x === b ? 'true' : 'false'));
+  document.getElementById('store-ko').hidden = b.dataset.t !== 'ko';
+  document.getElementById('store-en').hidden = b.dataset.t !== 'en';
+}));
+</script>
+</body>
+</html>

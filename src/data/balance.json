@@ -74,7 +74,8 @@
   },
   "closeCall": {
     "seconds": 2.5,
-    "pixels": 28
+    "pixels": 28,
+    "behindPixels": 40
   },
   "combo": {
     "window": 0.75

@@ -1,39 +1,39 @@
 1
-00:00:00,350 --> 00:00:02,600
+00:00:00,100 --> 00:00:01,560
 The tide is out!
 
 2
-00:00:02,750 --> 00:00:05,850
-Grab what glitters
+00:00:01,660 --> 00:00:04,307
+Grab everything that glitters
 
 3
-00:00:06,000 --> 00:00:08,000
-Just one more…?
+00:00:04,407 --> 00:00:05,921
+A full bag slows you down
 
 4
-00:00:08,200 --> 00:00:10,300
-Here comes the tide!
+00:00:06,071 --> 00:00:08,878
+Just one more…?
 
 5
-00:00:10,400 --> 00:00:12,300
-Run back!
+00:00:08,978 --> 00:00:12,021
+Tide's coming. Run!
 
 6
-00:00:12,600 --> 00:00:15,000
-Phew, just made it!
+00:00:12,171 --> 00:00:14,821
+Phew, made it!
 
 7
-00:00:16,600 --> 00:00:20,300
-Build your island from what you bring back
+00:00:15,021 --> 00:00:19,871
+Build with what you bring back
 
 8
-00:00:20,600 --> 00:00:23,600
+00:00:20,071 --> 00:00:22,921
 Reach places you couldn't before
 
 9
-00:00:23,800 --> 00:00:26,400
-Until the empty island becomes a village
+00:00:23,021 --> 00:00:24,571
+Until the empty island is a village
 
 10
-00:00:27,050 --> 00:00:29,100
+00:00:25,071 --> 00:00:27,121
 Low Tide Island — One thumb. Back before the tide.

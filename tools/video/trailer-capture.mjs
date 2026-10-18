@@ -7,11 +7,11 @@ import { openGame } from '../qa/shot.mjs';
 import { SLOW_INIT, setupSlow, setRate, captureSegment } from './slowcap.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const OUT = path.join(root, '.cache', 'trailer');
+const lang = process.argv.includes('--en') ? 'en-US' : 'ko-KR';
+const OUT = path.join(root, '.cache', lang === 'en-US' ? 'trailer_en' : 'trailer');
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 const SLOW = 0.2;
-const lang = process.argv.includes('--en') ? 'en-US' : 'ko-KR';
 const segs = {};
 
 async function session(storage) {
@@ -34,7 +34,8 @@ const waitIn = async (pg, cond, ms = 60000) => { const t0 = Date.now(); while (D
   await ev(pg, () => window.__autopilot.runScript([
     { x: 5.5, y: 50.6 }, { x: 5.33, y: 49.67 }, { x: 5.17, y: 48.73 }, { x: 5.0, y: 47.8 }, { x: 4.83, y: 46.55 }, { x: 5.38, y: 45.74 },
     { x: 6.44, y: 45.37 }, { x: 7.02, y: 46.06 }, { x: 7.57, y: 45.59 }, { x: 8.29, y: 46.31 }, { x: 9.0, y: 45.4 }, { x: 10.6, y: 45.3 },
-    { x: 8.0, y: 46.6 }, { x: 5.0, y: 46.8 }, { x: 3.1, y: 45.6 }, { x: 4.0, y: 46.6 },
+    { x: 8.0, y: 46.6 }, { x: 5.0, y: 46.8 }, { x: 4.3, y: 46.9 },
+    // wait at the creek bank until the tide is about to turn, then reach for the glass: "just one more"
     { waitSlack: 5.0 }, { x: 3.25, y: 45.4 }, { home: true },
   ]));
   await setRate(pg, cdp, SLOW);
