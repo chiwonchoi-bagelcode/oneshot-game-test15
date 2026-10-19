@@ -76,7 +76,8 @@ async function main() {
     tickAudio(d, app.mode === 'island');
   };
   requestAnimationFrame(frame);
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http') && !(typeof __DEV__ !== 'undefined' && __DEV__)) {
+  // offline cache for the stand-alone game (not when embedded in another page, where it can't register)
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http') && window.top === window && !(typeof __DEV__ !== 'undefined' && __DEV__)) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   }
 }

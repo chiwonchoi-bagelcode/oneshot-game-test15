@@ -24,7 +24,10 @@ function readSafeArea() {
 
 export function resize() {
   const root = screen.root;
-  const vw = window.innerWidth, vh = window.innerHeight;
+  // a host page may pad the document by the safe-area insets (e.g. when embedded); fit inside that padding
+  const rs = getComputedStyle(document.documentElement);
+  const padY = (parseFloat(rs.paddingTop) || 0) + (parseFloat(rs.paddingBottom) || 0);
+  const vw = window.innerWidth, vh = window.innerHeight - padY;
   // keep a portrait phone column on wide (desktop) windows
   let cssW = vw, cssH = vh;
   if (cssW > cssH * 0.62) cssW = Math.round(cssH * 0.5625);
